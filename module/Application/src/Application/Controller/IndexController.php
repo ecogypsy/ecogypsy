@@ -130,4 +130,7 @@ class IndexController extends AbstractActionController
     public function pakagelistAction(){
         return new ViewModel();
     }
+    public function galleryAction(){
+        return new ViewModel();
+    }    
 }
