@@ -126,5 +126,8 @@ class IndexController extends AbstractActionController
     public function pagenotfoundAction()
     {
         return new ViewModel();
-    }    
+    } 
+    public function pakagelistAction(){
+        return new ViewModel();
+    }
 }
