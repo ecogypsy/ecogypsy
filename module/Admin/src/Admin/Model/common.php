@@ -1,17 +1,24 @@
 <?php
 namespace Admin\Model;
-
-class common{
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Sql;
+class common {
+    public $adapter;
+    public $sql;
     public function __construct() {
-        $this->cObj = new curl();
+        $this->adapter = new Adapter(array(
+            'driver' => 'Mysqli',
+            'database' => 'ecogypsy',
+            'username' => 'root',
+            'password' => ''
+        ));
+        $this->sql = new Sql\Sql($this->adapter);
     }    
-    public function curlhit($params=null, $method, $controller='companycontroller') {
-        $queryStr = '';
-        if(!empty($params)){
-            $queryStr = http_build_query($params);
-        }
-        $url = NODE_API.$controller.'/'.$method.'?'.$queryStr;
-        //echo $url;die;
-        return $this->cObj->callCurl($url);
+    public function getUserDetail() {
+        $select = $this->sql->select()->from('user_master');
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();        
+        
+        return $result;
     }  
 }
