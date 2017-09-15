@@ -15,6 +15,9 @@ use Zend\Session\Container;
 use Admin\Model\common;
 class IndexController extends AbstractActionController
 {
+    public $commonObj;
+    public $view;
+    public $session;
     public function __construct() {
         $this->view =  new ViewModel();
         $this->session = new Container('User');
@@ -22,6 +25,8 @@ class IndexController extends AbstractActionController
     }
     public function indexAction()
     {
+        $userDetails = $this->commonObj->getUserDetail();
+        print_r($userDetails);die;
         return $this->view;
     }
     
