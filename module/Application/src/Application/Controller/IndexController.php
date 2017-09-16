@@ -26,17 +26,20 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         $userDetails = $this->commonObj->getUserDetail();
-        print_r($userDetails);die;
         return $this->view;
     }
     
-    public function signupAction(){
-        $countryListResponse = $this->commonObj->curlhit('', 'getcountrylist');
-        $countryList = json_decode($countryListResponse, true);  
-        $this->view->countryList = $countryList;
-        return $this->view;
+    public function signupAction() {
+        $return = array('status' => false, 'msg' => 'error');
+        $request = (array) $this->getRequest()->getPost();
+        $registrationResponse = $this->commonObj->registration($request);
+        if (!empty($registrationResponse)) {
+            $return = array('status' => true, 'msg' => 'Succesfully created');
+        }
+        echo json_encode($return);
+        exit;
     }
-    
+
     public function statelistAction() {
         $request = $this->getRequest();
         $params = array();
