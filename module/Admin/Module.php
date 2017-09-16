@@ -39,7 +39,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface {
         if(isset($config['view_manager']['template_map']['layout/'.$module_array[2]]) && file_exists($config['view_manager']['template_map']['layout/'.$module_array[2]])){
             $viewModel->setTemplate('layout/'.$module_array[2]);        
         }
-        if ($module_array[0] == 'Admin' || $module_array[0]=='Company') {
+/*        if ($module_array[0] == 'Admin' || $module_array[0]=='Company') {
             $action = $event->getRouteMatch()->getParam('action');
             $requestedResourse = $controller . "\\" . $action;
             $session = new Container('User');            
@@ -69,7 +69,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface {
                 }
                 $response->sendHeaders();
             }
-        }
+        }*/
     }
 /*    public function init(ModuleManager $manager)
     {
