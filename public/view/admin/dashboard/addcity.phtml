@@ -1,0 +1,42 @@
+<section class="settingSection" ng-app="dashboard" ng-controller="dashboardController">
+    <div class="container">
+        <div class="row">
+            <p class="danger" style="color:red" ng-show="errorShow">{{errorMsg}}</p>
+            <p class="danger" style="color:green" ng-show="successShow">{{successMsg}}</p>
+            <div class="col-xs-12">
+                <div class="settingContent bg-ash">
+                    <h4>Add City</h4>
+                    <div class="changePassword">
+                        <p>Add City</p>
+                        <div class="row">
+                            <form  method="post">
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="inputPassword3" placeholder="city name" ng-model="city_name">
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="primaryDrop">
+                                        <select name="guiest_id3" id="form-control" class="select-drop" sb="15257073" ng-model="country_id" ng-change="setCountry(country_id)">
+                                            <option value="">Select country</option>
+                                            <option ng-repeat="name in countryList" value="{{name.id}}">{{name.country_name}}</option>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn buttonTransparent" ng-click="addcity()">Add City</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+   var app = angular.module('dashboard', []);
+   var countryList = app.value('countryList',<?= json_encode($this->countryList)?>);
+</script>
+<script src="<?= $this->basePath() . '/public/js/dashboard.js' ?>"></script>
