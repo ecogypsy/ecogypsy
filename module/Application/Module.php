@@ -11,9 +11,13 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Application\Model\UserTable;
+use Zend\Db\ResultSet\ResultSet;
+//use Zend\Db\TableGateway\TableGateway;
 
 class Module
 {
+    
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();
@@ -36,4 +40,26 @@ class Module
             ),
         );
     }
+    
+
+
+     /*public function getServiceConfig()
+     {
+         error_reporting(0);
+         return array(
+             'factories' => array(
+                 'Application\Model\UserTable' =>  function($sm) {
+                     $tableGateway = $sm->get('UserTableGateway');
+                     $table = new AlbumTable($tableGateway);
+                     return $table;
+                 },
+                 'UserTableGateway' => function ($sm) {
+                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                     $resultSetPrototype = new ResultSet();
+                     $resultSetPrototype->setArrayObjectPrototype(new Album());
+                     return new TableGateway('application', $dbAdapter, null, $resultSetPrototype);
+                 },
+             ),
+         );
+     }*/
 }

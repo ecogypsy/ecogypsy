@@ -1,9 +1,74 @@
+<body class="body-wrapper  changeHeader ">
+  <div class="main-wrapper">
+
+    <!-- HEADER -->
+    <header>
+      <nav class="navbar navbar-default navbar-main navbar-fixed-top" role="navigation">
+		<div class="top_header">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+						<i class="fa fa-phone-square" aria-hidden="true"></i> &nbsp;8130450522 &nbsp;&nbsp;&nbsp;
+						<i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; raviducat@gmail.com
+					</div>
+					<div class="col-sm-6 col-md-6 col-lg-6 col-xs-12 pull-right">
+						<a style="color:#fff;" class="pull-right" href="" data-toggle="modal" data-target="#signup">Signup</a>
+						<a style="color:#fff;margin-right:10px;" class="pull-right" href="" data-toggle="modal" data-target="#login">Login</a>
+					</div>					
+				</div>
+			</div>
+		</div>
+        <div class="container">
+
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+				<a class="navbar-brand" href="index.html"></a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+<li class="dropdown singleDrop active">
+<a href="index.html">Home</a>
+</li>
+<li class="dropdown singleDrop">
+	<a href="pakagelist.html">tour packages</a>
+</li>
+<li class="dropdown singleDrop">
+	<a href="aboutus.html">about us</a>
+</li>
+<li class="dropdown singleDrop">
+	<a href="contactus.html">contact us</a>
+</li>
+<li class="dropdown singleDrop">
+	<a href="gallery.html">gallery</a>
+</li>             
+              <li class="dropdown searchBox">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="searchIcon"><i class="fa fa-search" aria-hidden="true"></i></span></a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li>
+                    <span class="input-group">
+                      <input type="text" class="form-control" placeholder="Search..." aria-describedby="basic-addon2">
+                      <span class="input-group-addon" id="basic-addon2">Search</span>
+                    </span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </nav>
+    </header>
+
+
+    <!-- BANNER -->
     <section class="bannercontainer">
       <div class="fullscreenbanner-container">
         <div class="fullscreenbanner">
           <ul>
             <li data-transition="parallaxvertical" data-slotamount="5" data-masterspeed="700" data-title="Slide 1">
-              <img src="<?=$this->basePath()?>/img/home/slider/slider-01.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+              <img src="img/home/slider/slider-01.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
               <div class="slider-caption container">
                 <div class="tp-caption rs-caption-1 sft start"
                   data-hoffset="0"
@@ -40,7 +105,7 @@
               </div>
             </li>
             <li data-transition="parallaxvertical" data-slotamount="5" data-masterspeed="1000" data-title="Slide 2">
-              <img src="<?=$this->basePath()?>/img/home/slider/slider-02.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+              <img src="img/home/slider/slider-02.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
               <div class="slider-caption container">
                 <div class="tp-caption rs-caption-1 sft start text-center"
                   data-hoffset="0"
@@ -80,7 +145,7 @@
               </div>
             </li>
             <li data-transition="parallaxvertical" data-slotamount="5" data-masterspeed="700" data-title="Slide 1">
-              <img src="<?=$this->basePath()?>/img/home/slider/slider-03.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+              <img src="img/home/slider/slider-03.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
               <div class="slider-caption container">
                 <div class="tp-caption rs-caption-1 sft start"
                   data-hoffset="0"
@@ -117,7 +182,7 @@
               </div>
             </li>
             <li data-transition="parallaxvertical" data-slotamount="5" data-masterspeed="1000" data-title="Slide 2">
-              <img src="<?=$this->basePath()?>/img/home/slider/slider-04.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+              <img src="img/home/slider/slider-04.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
               <div class="slider-caption container">
                 <div class="tp-caption rs-caption-1 sft start text-center"
                   data-hoffset="0"
@@ -232,7 +297,7 @@
         <div class="row">
           <div class="col-sm-4 col-xs-12">
             <div class="thumbnail deals">
-              <img src="<?=$this->basePath()?>/img/home/deal/deal-01.jpg" alt="deal-image">
+              <img src="img/home/deal/deal-01.jpg" alt="deal-image">
               <a href="single-package-right-sidebar.html" class="pageLink"></a>
               <div class="discountInfo">
                 <div class="discountOffer">
@@ -271,7 +336,7 @@
           </div>
           <div class="col-sm-4 col-xs-12">
             <div class="thumbnail deals">
-              <img src="<?=$this->basePath()?>/img/home/deal/deal-02.jpg" alt="deal-image">
+              <img src="img/home/deal/deal-02.jpg" alt="deal-image">
               <a href="single-package-fullwidth.html" class="pageLink"></a>
               <div class="discountInfo">
                 <div class="discountOffer">
@@ -310,7 +375,7 @@
           </div>
           <div class="col-sm-4 col-xs-12">
             <div class="thumbnail deals">
-              <img src="<?=$this->basePath()?>/img/home/deal/deal-03.jpg" alt="deal-image">
+              <img src="img/home/deal/deal-03.jpg" alt="deal-image">
               <a href="single-package-right-sidebar.html" class="pageLink"></a>
               <div class="discountInfo">
                 <div class="discountOffer">
@@ -431,7 +496,7 @@
             <div class="col-sm-4 isotopeSelector asia">
               <article class="">
                 <figure>
-                  <img src="<?=$this->basePath()?>/img/home/packages/packages-1.jpg" alt="">
+                  <img src="img/home/packages/packages-1.jpg" alt="">
                   <h4>Vestibulum Tour</h4>
                   <div class="overlay-background">
                     <div class="inner"></div>
@@ -450,7 +515,7 @@
             <div class="col-sm-4 isotopeSelector america africa">
               <article class="">
                 <figure>
-                  <img src="<?=$this->basePath()?>/img/home/packages/packages-2.jpg" alt="">
+                  <img src="img/home/packages/packages-2.jpg" alt="">
                   <h4>Maecenas Tour</h4>
                   <div class="overlay-background">
                     <div class="inner"></div>
@@ -469,7 +534,7 @@
             <div class="col-sm-4 isotopeSelector africa">
               <article class="">
                 <figure>
-                  <img src="<?=$this->basePath()?>/img/home/packages/packages-3.jpg" alt="">
+                  <img src="img/home/packages/packages-3.jpg" alt="">
                   <h4>Lobortis Tour</h4>
                   <div class="overlay-background">
                     <div class="inner"></div>
@@ -488,7 +553,7 @@
             <div class="col-sm-4 isotopeSelector asia america">
               <article class="">
                 <figure>
-                  <img src="<?=$this->basePath()?>/img/home/packages/packages-4.jpg" alt="">
+                  <img src="img/home/packages/packages-4.jpg" alt="">
                   <h4>Leo Lacus Tour</h4>
                   <div class="overlay-background">
                     <div class="inner"></div>
@@ -507,7 +572,7 @@
             <div class="col-sm-4 isotopeSelector america">
               <article class="">
                 <figure>
-                  <img src="<?=$this->basePath()?>/img/home/packages/packages-5.jpg" alt="">
+                  <img src="img/home/packages/packages-5.jpg" alt="">
                   <h4>Nullam Tour</h4>
                   <div class="overlay-background">
                     <div class="inner"></div>
@@ -526,7 +591,7 @@
             <div class="col-sm-4 isotopeSelector africa asia">
               <article class="">
                 <figure>
-                  <img src="<?=$this->basePath()?>/img/home/packages/packages-6.jpg" alt="">
+                  <img src="img/home/packages/packages-6.jpg" alt="">
                   <h4>Hendrerit Tour</h4>
                   <div class="overlay-background">
                     <div class="inner"></div>
@@ -575,6 +640,8 @@
         </div>
       </div>
     </div>
+<!-- FOOTER -->
+<footer>
 <div class="container">
   <div class="row">
     <h2>Testimonials</h2>
@@ -588,7 +655,7 @@
               <div class="col-md-4">
 				<div class="row">	
 					<div class="col-md-4">
-						<img alt="" src="<?=$this->basePath()?>/img/about-us/team-01.jpg">
+						<img alt="" src="img/about-us/team-01.jpg">
 					</div>
 					<div class="col-md-8">
 						I would like to thank Akanksha and the team for the fantastic work on content writing for my site. I love what you have done.
@@ -598,7 +665,7 @@
               <div class="col-md-4">
 				<div class="row">	
 					<div class="col-md-4">
-						<img alt="" src="<?=$this->basePath()?>/img/about-us/team-01.jpg">
+						<img alt="" src="img/about-us/team-01.jpg">
 					</div>
 					<div class="col-md-8">
 						I would like to thank Akanksha and the team for the fantastic work on content writing for my site. I love what you have done.
@@ -608,7 +675,7 @@
               <div class="col-md-4">
 				<div class="row">	
 					<div class="col-md-4">
-						<img alt="" src="<?=$this->basePath()?>/img/about-us/team-01.jpg">
+						<img alt="" src="img/about-us/team-01.jpg">
 					</div>
 					<div class="col-md-8">
 						I would like to thank Akanksha and the team for the fantastic work on content writing for my site. I love what you have done.
@@ -622,7 +689,7 @@
               <div class="col-md-4">
 				<div class="row">	
 					<div class="col-md-4">
-						<img alt="" src="<?=$this->basePath()?>/img/about-us/team-01.jpg">
+						<img alt="" src="img/about-us/team-01.jpg">
 					</div>
 					<div class="col-md-8">
 						I would like to thank Akanksha and the team for the fantastic work on content writing for my site. I love what you have done.
@@ -632,7 +699,7 @@
               <div class="col-md-4">
 				<div class="row">	
 					<div class="col-md-4">
-						<img alt="" src="<?=$this->basePath()?>/img/about-us/team-01.jpg">
+						<img alt="" src="img/about-us/team-01.jpg">
 					</div>
 					<div class="col-md-8">
 						I would like to thank Akanksha and the team for the fantastic work on content writing for my site. I love what you have done.
@@ -642,7 +709,7 @@
               <div class="col-md-4">
 				<div class="row">	
 					<div class="col-md-4">
-						<img alt="" src="<?=$this->basePath()?>/img/about-us/team-01.jpg">
+						<img alt="" src="img/about-us/team-01.jpg">
 					</div>
 					<div class="col-md-8">
 						I would like to thank Akanksha and the team for the fantastic work on content writing for my site. I love what you have done.
@@ -658,3 +725,112 @@
     </div>
   </div>
 </div>
+  <div class="copyRight clearfix">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-push-6 col-xs-12">
+          <ul class="list-inline">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-sm-pull-6 col-xs-12">
+          <div class="copyRightText">
+            <p>Copyright � 2016. All Rights Reserved by <a target="_blank" href="http://www.iamabdus.com/">Abdus</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal fade signupLoging" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-app="registration" ng-controller="registrationController">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modalContentCustom">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create your account</h4>
+      </div>
+      <div class="modal-body">
+          <form method="post" >
+		  <p class="danger" style="color:red" ng-show="errorShow">{{errorMsg}}</p>
+		  <p class="danger" style="color:green" ng-show="successShow">{{successMsg}}</p>
+          <div class="form-group">
+            <input type="text" class="form-control bg-ash" id="full_name" placeholder="Full Name" name="full_name" ng-model="name">
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control bg-ash" id="email" placeholder="Email" name="email" ng-model="email">
+          </div>
+          <div class="form-group">
+              <input type="number" class="form-control bg-ash" id="number" placeholder="number" name="number" ng-model="number">
+          </div>    
+          <div class="form-group">
+              <input type="password" class="form-control bg-ash" id="password" placeholder="Password" name="password" ng-model="password">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> I agree to the terms of use and privacy.
+            </label>
+          </div>
+          <button type="button" class="btn btn-default" ng-click="registration()">Login</button>
+        </form>
+        <div class="or">
+          or
+        </div>
+        <a class="btn btn-default btnSocial"  href="#">Log in with facebook</a>
+      </div>
+
+      <div class="modal-footer">
+          <div class="dontHaveAccount">
+            <p>Don�t have an Account?<a href=""> Sign up</a></p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade signupLoging" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modalContentCustom">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Log in to your account</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="">
+          <div class="form-group">
+            <input type="email" class="form-control bg-ash" id="exampleInputPassword1" placeholder="Email" ng-model="email">
+      </div>
+          <div class="form-group">
+            <input type="password" class="form-control bg-ash" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Remember me
+            </label>
+            <a class="forgotPass clerfix" href="">Fogot Password?</a>
+          </div>
+          <button type="submit" class="btn btn-default">Login</button>
+        </form>
+        <div class="or">
+          or
+        </div>
+        <a class="btn btn-default btnSocial"  href="#">Log in with facebook</a>
+      </div>
+
+      <div class="modal-footer">
+          <div class="dontHaveAccount">
+            <p>Don�t have an Account?<a href=""> Sign up</a></p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="<?=$this->basePath() . '/public/js/angular.min.js'?>"></script>
+<script src="<?=$this->basePath() . '/public/js/registration.js'?>"></script>
