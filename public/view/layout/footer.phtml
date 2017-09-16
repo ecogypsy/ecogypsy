@@ -22,7 +22,7 @@
 </footer>
 </div>
 <!-- Signup Modal -->
-<div class="modal fade signupLoging" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade signupLoging" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-app="registration" ng-controller="registrationController">
   <div class="modal-dialog" role="document">
     <div class="modal-content modalContentCustom">
       <div class="modal-header">
@@ -30,22 +30,27 @@
         <h4 class="modal-title" id="myModalLabel">Create your account</h4>
       </div>
       <div class="modal-body">
-        <form method="post" action="">
+          <form method="post" >
+		  <p class="danger" style="color:red" ng-show="errorShow">{{errorMsg}}</p>
+		  <p class="danger" style="color:green" ng-show="successShow">{{successMsg}}</p>
           <div class="form-group">
-            <input type="text" class="form-control bg-ash" id="exampleInputEmail1" placeholder="Full Name">
+            <input type="text" class="form-control bg-ash" id="full_name" placeholder="Full Name" name="full_name" ng-model="name">
           </div>
           <div class="form-group">
-            <input type="email" class="form-control bg-ash" id="exampleInputPassword1" placeholder="Email">
+            <input type="email" class="form-control bg-ash" id="email" placeholder="Email" name="email" ng-model="email">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control bg-ash" id="exampleInputPassword1" placeholder="Password">
+              <input type="number" class="form-control bg-ash" id="number" placeholder="number" name="number" ng-model="number">
+          </div>    
+          <div class="form-group">
+              <input type="password" class="form-control bg-ash" id="password" placeholder="Password" name="password" ng-model="password">
           </div>
           <div class="checkbox">
             <label>
               <input type="checkbox"> I agree to the terms of use and privacy.
             </label>
           </div>
-          <button type="submit" class="btn btn-default">Login</button>
+          <button type="button" class="btn btn-default" ng-click="registration()">Login</button>
         </form>
         <div class="or">
           or
@@ -55,7 +60,7 @@
 
       <div class="modal-footer">
           <div class="dontHaveAccount">
-            <p>Don�t have an Account?<a href=""> Sign up</a></p>
+            <p>Don?t have an Account?<a href=""> Sign up</a></p>
           </div>
       </div>
     </div>
@@ -165,5 +170,7 @@
 
 <link href="<?= $this->basePath() . '/public/options/optionswitch.css'?>" rel="stylesheet">
 <script src="<?= $this->basePath() . '/public/options/optionswitcher.js'?>"></script>
+<script src="<?= $this->basePath() . '/public/js/angular.min.js'?>"></script>
+<script src="<?= $this->basePath() . '/public/js/registration.js'?>"></script>
 </body>
 </html>
