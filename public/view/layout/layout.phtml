@@ -10,9 +10,9 @@ echo $this->doctype(); ?>
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
-        <?php //echo $this->headScript()
+        <?php echo $this->headScript()
             //->prependFile($this->basePath().'/public/js/validate.js')
-            //->prependFile($this->basePath().'/public/js/angular.min.js')
+            ->prependFile($this->basePath().'/public/js/angular.min.js')
         ; ?>
     </head>
    
