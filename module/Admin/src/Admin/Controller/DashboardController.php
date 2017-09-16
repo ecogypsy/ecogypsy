@@ -44,8 +44,27 @@ class DashboardController extends AbstractActionController {
         return $this->view;
     }
 
-    public function priceAction() {
+    public function addcityAction() {
+        $countryList = array();
+        $getCountryList = $this->commonObj->getCountryList();
+        if(!empty($getCountryList)){
+            foreach ($getCountryList as $key => $value) {
+                $countryList[$key] = $value;
+            }
+        }
+        $this->view->countryList = $countryList;
         return $this->view;
+    }
+    
+    public function savecityAction(){
+        $return = array('status' => false, 'msg' => 'error');
+        $request = (array) $this->getRequest()->getPost();
+        $registrationResponse = $this->commonObj->savecity($request);
+        if (!empty($registrationResponse)) {
+            $return = array('status' => true, 'msg' => 'Succesfully created');
+        }
+        echo json_encode($return);
+        exit;
     }
 
     public function pricesaveAction() {
