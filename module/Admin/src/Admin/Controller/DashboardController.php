@@ -66,6 +66,31 @@ class DashboardController extends AbstractActionController {
         echo json_encode($return);
         exit;
     }
+    
+    public function hotelAction() {
+        $cityList = array();
+        $getCityList = $this->commonObj->getCityList();
+        if(!empty($getCityList)){
+            foreach ($getCityList as $key => $value) {
+                $cityList[$key] = $value;
+            }
+        }
+        
+        $this->view->cityList = $cityList;
+        return $this->view;
+    }
+    
+    public function savehotelAction(){
+        $return = array('status' => false, 'msg' => 'error');
+        $request = (array) $this->getRequest()->getPost();
+        $files = $this->params()->fromFiles($request['upload_file']);
+        $registrationResponse = $this->commonObj->saveHotel($request);
+        if (!empty($registrationResponse)) {
+            $return = array('status' => true, 'msg' => 'Succesfully created');
+        }
+        echo json_encode($return);
+        exit;
+    }
 
     public function pricesaveAction() {
         $request = $this->getRequest()->getPost();
