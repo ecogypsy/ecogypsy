@@ -12,7 +12,7 @@ app.controller('dashboardController', function ($scope, $http, $sce,$timeout,cou
     $scope.successShow = false;
     $scope.errorShow = false;
     $scope.countryList = countryList;
-    $scope.setCountry = function(id){
+    $scope.setCountry = function(id){        
         $scope.country_id = id;
     }
     $scope.addcity = function (data) {

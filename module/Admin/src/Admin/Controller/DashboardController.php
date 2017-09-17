@@ -169,5 +169,7 @@ class DashboardController extends AbstractActionController {
     public function addpackageAction() {
         return $this->view;
     }    
-
+    public function packagelistAction() {
+        return $this->view;
+    }
 }
