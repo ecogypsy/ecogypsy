@@ -69,5 +69,38 @@ class common {
             return array();
         }
     }
+    
+    public function getCityList() {
+        try {
+            $select = $this->sql->select()->from('city_master');
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute();
+
+            return $result;
+        } catch (Exception $e) {
+            return array();
+        }
+    }
+    
+    public function saveHotel($data) {
+        try {
+            $newData = array(
+                'city' => $data['city_id'],
+                'name' => $data['hotel_name'],
+                'category' => $data['category'],
+                'type' => $data['type'],
+                'cover_image' => $data['upload_file'],
+            );
+            
+            $insert = $this->sql->insert('hotel_master')
+                    ->values($newData);
+            $statement = $this->sql->prepareStatementForSqlObject($insert);
+            $result = $statement->execute();
+
+            return $result->getAffectedRows();
+        } catch (Exception $x) {
+            return array();
+        }
+    }
 
 }
