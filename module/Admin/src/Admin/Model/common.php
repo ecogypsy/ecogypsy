@@ -134,5 +134,39 @@ class common {
             return array();
         }
     }
+    
+    public function getLocationList() {
+        try {
+            $select = $this->sql->select()->from('location_master');
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute();
+
+            return $result;
+        } catch (Exception $e) {
+            return array();
+        }
+    }
+    
+    public function savePackage($data) {
+        try {
+            $newData = array(
+                'package_name' => $data['package_name'],
+                'location_id' => $data['location'],
+                'total_seat' => $data['total_seat'],
+                'description' => $data['description'],
+                'start_date' => $data['start_date'],
+                'end_date' => $data['end_date'],
+            );
+            
+            $insert = $this->sql->insert('package_master')
+                    ->values($newData);
+            $statement = $this->sql->prepareStatementForSqlObject($insert);
+            $result = $statement->execute();
+
+            return $result->getAffectedRows();
+        } catch (Exception $x) {
+            return array();
+        }
+    }
 
 }

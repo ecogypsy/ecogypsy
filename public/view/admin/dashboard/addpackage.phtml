@@ -1,31 +1,89 @@
-<!-- ADD PACKAGE -->
-<section class="settingSection">
+<section class="settingSection" ng-app="addpackage" ng-controller="addpackageController">
     <div class="container">
         <div class="row">
+            <p class="danger" style="color:red" ng-show="errorShow">{{errorMsg}}</p>
+            <p class="danger" style="color:green" ng-show="successShow">{{successMsg}}</p>
             <div class="col-xs-12">
                 <div class="settingContent bg-ash">
                     <h4>Add Package</h4>
-                    <!-- Change Password -->
                     <div class="changePassword">
+                        <p>Add Package</p>
                         <div class="row">
-                            <form action="" method="post">
+                            <form  method="post" >
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="inputPassword3" placeholder="Package Name">
+                                    <input type="text" class="form-control" id="inputPassword3" placeholder="Package Title" ng-model="package_name">
                                 </div>
+
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="inputPassword3" placeholder="New Password">
+                                    <input type="text" class="form-control" id="inputPassword3" placeholder="Total Seat" ng-model="total_seat">
                                 </div>
+
                                 <div class="col-sm-12">
-                                    <input type="password" class="form-control" id="inputPassword3" placeholder="Confirm New Password">
+                                    <div class="primaryDrop">
+                                        <select name="guiest_id3" id="location" class="" sb="15257073" ng-model="location" style="width:50%">
+                                            <option value="">Select location</option>
+                                            <option ng-repeat="name in locationList" value="{{name.id}}">{{name.location_name}}</option>
+
+                                        </select>
+                                    </div>
                                 </div>
+
                                 <div class="col-sm-12">
-                                    <button type="submit" class="btn buttonTransparent">Update Password</button>
+                                    <br>
+                                    <div class="primaryDrop" class="area" >
+                                        <input type="text" class="form-control datepicker" id="start_date" placeholder="start date" ng-model='start_date' >
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <br>
+                                    <div class="primaryDrop" class="area"  >
+                                        <input type="text" class="form-control datepicker" id="end_date" placeholder="end date" ng-model='end_date'>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <br>
+                                    <div class="primaryDrop" class="area"  >
+                                        <textarea rows="4" id="description" cols="50"  placeholder="Describe package here..." ng-model='description'></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn buttonTransparent" ng-click="addpackage()">Add Package</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    var app = angular.module('addpackage', []);
+    var locationList = app.value('locationList',<?= json_encode($this->locationList) ?>);
+</script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="<?= $this->basePath() . '/public/js/addpackage.js' ?>"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $( document ).ready(function() {
+    $("#start_date").datepicker({ 
+        format: 'yyyy-mm-dd'
+    });
+    $("#start_date").on("change", function () {
+        var fromdate = $(this).val();
+    });
+    $("#end_date").datepicker({ 
+        format: 'yyyy-mm-dd'
+    });
+    $("#end_date").on("change", function () {
+        var fromdate = $(this).val();
+    });
+});
+</script>

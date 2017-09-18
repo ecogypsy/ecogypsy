@@ -124,6 +124,31 @@ class DashboardController extends AbstractActionController {
             echo json_encode($return);
             exit;
         }
+        
+     public function addpackageAction() {
+        $locationList = array();
+        $getLocationList = $this->commonObj->getLocationList();
+        if(!empty($getLocationList)){
+            foreach ($getLocationList as $key => $value) {
+                $locationList[$key] = $value;
+            }
+        }
+        
+        $this->view->locationList = $locationList;
+        return $this->view;
+     }    
+        
+     public function savepackageAction(){
+            $return = array('status' => false, 'msg' => 'error');
+            $request = (array) $this->getRequest()->getPost();
+            $packageResponse = $this->commonObj->savePackage($request);
+            if (!empty($packageResponse)) {
+                $return = array('status' => true, 'msg' => 'Succesfully created');
+            }
+            echo json_encode($return);
+            exit;
+        }
+        
     public function pricesaveAction() {
         $request = $this->getRequest()->getPost();
         $params = array();
@@ -198,9 +223,7 @@ class DashboardController extends AbstractActionController {
     public function addUserAction() {
         return $this->view;
     }
-    public function addpackageAction() {
-        return $this->view;
-    }    
+      
     public function packagelistAction() {
         return $this->view;
     }
