@@ -6,46 +6,56 @@ function ObjecttoParams(obj) {
     return p.join('&');
 };
 
-app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityList) {
+app.controller('locationController', function ($scope, $http, $sce,$timeout,cityList,hotelList) {
     $scope.successShow = false;
     $scope.errorShow = false;
     $scope.cityList = cityList;
-    
-   
-    $scope.addhotel = function () {
+    $(function() {
+        $("#city_id").on("change",function() {
+          var city_id = this.value;
+              var temp = {};
+              angular.forEach(hotelList, function(value, key) {
+                    if(city_id == value.city){
+                        temp[key] = value;
+                    }
+                 });
+                var select = document.getElementById('hotel');
+                angular.forEach(temp, function(value, key) {
+                    var opt = document.createElement('option');
+                    opt.value = value.id;
+                    opt.innerHTML = value.name;
+                    select.appendChild(opt);
+                 });
+        }); 
+    });
+    $scope.addlocation = function () {
                 $scope.upload_file = $('input[type=file]').val();
-                $scope.category = $('#category').find(":selected").val();
                 $scope.city_id = $('#city_id').find(":selected").val();
-                $scope.type = $('#type').find(":selected").val();
+                $scope.hotel_id = $('#hotel').find(":selected").val();
 		var error = ' ';
-		if($scope.hotel_name == undefined || $scope.hotel_name == ''){
-			error = 'Please enter hotel location' ;
+		if($scope.location_name == undefined || $scope.location_name == ''){
+			error = 'Please enter hotel name' ;
 		}
 		
 		if($scope.city_id == undefined || $scope.city_id == ''){
 			error = 'Please select city name' ;
 		}
                 
-                if($scope.category == undefined || $scope.category == ''){
-			error = 'Please select category name' ;
+                if($scope.hotel_id == undefined || $scope.hotel_id == ''){
+			error = 'Please select hotel name' ;
 		}
-                if($scope.type == undefined || $scope.type == ''){
-			error = 'Please select type name' ;
-		}
-		if($scope.upload_file == undefined || $scope.upload_file == ''){
-			error = 'Please upload hotel image';
-		}
+                
 		if(error == ' '){
 			var dataList = {};
-			dataList.hotel_name = $scope.hotel_name;
+			dataList.location_name = $scope.location_name;
 			dataList.city_id = $scope.city_id;
-                        dataList.category = $scope.category;
-			dataList.type = $scope.type;
+                        dataList.hotel_id = $scope.hotel_id;
+			dataList.description = $('#description').val();
                         dataList.upload_file = $scope.upload_file;
 			$http({
 				method: 'POST',
 				data : ObjecttoParams(dataList),
-				url: serverUrl + 'admin/dashboard/savehotel',
+				url: serverUrl + 'admin/dashboard/savelocation',
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			}).success(function (response) {
 				if (response.status) {
