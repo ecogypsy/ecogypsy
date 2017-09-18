@@ -1,0 +1,64 @@
+<section class="settingSection" ng-app="location" ng-controller="locationController">
+    <div class="container">
+        <div class="row">
+            <p class="danger" style="color:red" ng-show="errorShow">{{errorMsg}}</p>
+            <p class="danger" style="color:green" ng-show="successShow">{{successMsg}}</p>
+            <div class="col-xs-12">
+                <div class="settingContent bg-ash">
+                    <h4>Add Location</h4>
+                    <div class="changePassword">
+                        <p>Add Location</p>
+                        <div class="row">
+                            <form  method="post">
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="inputPassword3" placeholder="location name" ng-model="location_name">
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="primaryDrop">
+                                        <select name="guiest_id3" id="city_id" class="select-drop" sb="15257073" ng-model="city_id" ng-change="getHotel()" >
+                                            <option value="">Select city</option>
+                                            <option ng-repeat="name in cityList" value="{{name.id}}">{{name.city_name}}</option>
+                                            
+                                        </select>                                  
+                                    </div>
+                                </div>
+                                
+                                <div class="col-sm-12">
+                                    <br>
+                                    <div class="primaryDrop">
+                                        <select name="guiest_id3" id="hotel" class="" sb="15257073" ng-model="hotel_id"  >
+                                            <option value="">Select hotel</option>
+                                            <!--<option ng-repeat="name in hotelList" value="{{name.id}}">{{name.name}}</option>-->
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <br>
+                                    <div class="primaryDrop" class="area" ng-model='description' >
+                                        <textarea rows="4" id="description" cols="50"  placeholder="Describe hotel here..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                   
+                                    <input type="file" class="form-control" id="uploadfile"  ng-model="upload_file">
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn buttonTransparent" ng-click="addlocation()">Add Location</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+   var app = angular.module('location', []);
+   var cityList = app.value('cityList',<?= json_encode($this->cityList)?>);
+   var hotelList = app.value('hotelList',<?= json_encode($this->hotelList)?>);
+</script>
+<script src="<?= $this->basePath() . '/public/js/addlocation.js' ?>"></script>

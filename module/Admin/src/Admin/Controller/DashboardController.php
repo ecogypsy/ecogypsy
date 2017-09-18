@@ -91,7 +91,39 @@ class DashboardController extends AbstractActionController {
         echo json_encode($return);
         exit;
     }
-
+    
+    public function addlocationAction() {
+        $cityList = array();
+        $getCityList = $this->commonObj->getCityList();
+        if(!empty($getCityList)){
+            foreach ($getCityList as $key => $value) {
+                $cityList[$key] = $value;
+            }
+        }
+        
+        $hotelList = array();
+        $getHotelList = $this->commonObj->gethotelList();
+        if(!empty($getHotelList)){
+            foreach ($getHotelList as $key => $value) {
+                $hotelList[$key] = $value;
+            }
+        }
+        
+        $this->view->cityList = $cityList;
+        $this->view->hotelList = $hotelList;
+        return $this->view;
+    }
+    public function savelocationAction(){
+            $return = array('status' => false, 'msg' => 'error');
+            $request = (array) $this->getRequest()->getPost();
+            $files = $this->params()->fromFiles($request['upload_file']);
+            $registrationResponse = $this->commonObj->saveLocation($request);
+            if (!empty($registrationResponse)) {
+                $return = array('status' => true, 'msg' => 'Succesfully created');
+            }
+            echo json_encode($return);
+            exit;
+        }
     public function pricesaveAction() {
         $request = $this->getRequest()->getPost();
         $params = array();

@@ -102,5 +102,37 @@ class common {
             return array();
         }
     }
+    
+    public function gethotelList() {
+        try {
+            $select = $this->sql->select()->from('hotel_master');
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute();
+
+            return $result;
+        } catch (Exception $e) {
+            return array();
+        }
+    }
+    public function saveLocation($data) {
+        try {
+            $newData = array(
+                'city' => $data['city_id'],
+                'location_name' => $data['location_name'],
+                'hotel_id' => $data['hotel_id'],
+                'description' => $data['description'],
+                'image' => $data['upload_file'],
+            );
+            
+            $insert = $this->sql->insert('location_master')
+                    ->values($newData);
+            $statement = $this->sql->prepareStatementForSqlObject($insert);
+            $result = $statement->execute();
+
+            return $result->getAffectedRows();
+        } catch (Exception $x) {
+            return array();
+        }
+    }
 
 }
