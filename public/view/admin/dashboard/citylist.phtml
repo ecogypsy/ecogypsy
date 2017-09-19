@@ -1,0 +1,42 @@
+<!-- RECENT ACTIVITY SECTION -->
+<section class="recentActivitySection">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="recentActivityContent bg-ash">
+                    <div class="dashboardPageTitle">
+                        <div class="row">
+                            <div  class="col-sm-12 col-md-6 pull-left">   
+                                <h2>Serviceable City</h2>
+                            </div>
+                            <div  class="col-sm-12 col-md-6 pull-right">   
+                                <ul class="list-inline detailsBtn">
+                                    <li><a href="<?=$GLOBALS['SITE_ADMIN_URL']?>dashboard/addcity" class="btn buttonTransparent buttonCustomPrimary">Add City</a></li>
+                                </ul>  
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="table-responsive"  data-pattern="priority-columns">
+                        <table class="table listingsTable">
+                            <tr class="rowItem">
+                                <td>City Name</td>
+                                <td>Action</td>                                
+                            </tr>
+                            <?php 
+                            foreach ($this->cityList as $key => $value) {
+                            ?>
+                            <tr class="rowItem">
+                                <td><?= $value['city_name']?></td>
+                                <td>
+                                    <a href="#"><i class="fa fa-pencil"></i></a>
+                                    <a href="#"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <?php }?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

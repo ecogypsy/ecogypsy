@@ -148,7 +148,20 @@ class DashboardController extends AbstractActionController {
             echo json_encode($return);
             exit;
         }
+    
+    public function citylistAction() {
+        $cityList = array();
+        $getCityList = $this->commonObj->getCityList();
+        if(!empty($getCityList)){
+            foreach ($getCityList as $key => $value) {
+                $cityList[$key] = $value;
+            }
+        }
         
+        $this->view->cityList = $cityList;
+        return $this->view;
+     } 
+     
     public function pricesaveAction() {
         $request = $this->getRequest()->getPost();
         $params = array();
