@@ -1,6 +1,6 @@
 <!-- RECENT ACTIVITY SECTION -->
 <section class="recentActivitySection">
-    <div class="container">
+    <div class="container" ng-app="cityList" ng-controller="cityListController">
         <div class="row">
             <div class="col-xs-12 ">
                 <div class="recentActivityContent bg-ash">
@@ -15,6 +15,8 @@
                                 </ul>  
                             </div>    
                         </div>
+                        <p class="danger" style="color:red" ng-show="errorShow">{{errorMsg}}</p>
+                        <p class="danger" style="color:green" ng-show="successShow">{{successMsg}}</p>
                     </div>
                     <div class="table-responsive"  data-pattern="priority-columns">
                         <table class="table listingsTable">
@@ -22,17 +24,13 @@
                                 <td>City Name</td>
                                 <td>Action</td>                                
                             </tr>
-                            <?php 
-                            foreach ($this->cityList as $key => $value) {
-                            ?>
-                            <tr class="rowItem">
-                                <td><?= $value['city_name']?></td>
+                            <tr class="rowItem" ng-repeat="(key,value) in cityList">
+                                <td>{{value.city_name}}</td>
                                 <td>
-                                    <a href="#"><i class="fa fa-pencil"></i></a>
-                                    <a href="#"><i class="fa fa-trash-o"></i></a>
+                                    <a href="<?=$GLOBALS['SITE_ADMIN_URL']?>dashboard/addcity?data={{value.id}}"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" ng-click="delete(value.id)"><i class="fa fa-trash-o" ></i></a>
                                 </td>
                             </tr>
-                            <?php }?>
                         </table>
                     </div>
                 </div>
@@ -40,3 +38,8 @@
         </div>
     </div>
 </section>
+<script>
+   var app = angular.module('cityList', []);
+   var cityList = app.value('cityList',<?= json_encode($this->cityList)?>);
+</script>
+<script src="<?= $this->basePath() . '/public/js/citylist.js' ?>"></script>

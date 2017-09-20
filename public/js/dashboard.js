@@ -8,13 +8,21 @@ function ObjecttoParams(obj) {
 
 
 
-app.controller('dashboardController', function ($scope, $http, $sce,$timeout,countryList) {
+app.controller('dashboardController', function ($scope, $http, $sce,$timeout,countryList,cityData) {
     $scope.successShow = false;
     $scope.errorShow = false;
+    $scope.id = '';
     $scope.countryList = countryList;
     $scope.setCountry = function(id){        
         $scope.country_id = id;
     }
+    
+    if(cityData.length == undefined){
+        $scope.country_id = cityData['1']['country_id'];
+        $scope.city_name = cityData['1']['city_name'];
+        $scope.id = cityData['1']['id'];
+    }
+    
     $scope.addcity = function (data) {
 		var error = ' ';
 		if($scope.city_name == undefined || $scope.city_name == ''){
@@ -29,6 +37,10 @@ app.controller('dashboardController', function ($scope, $http, $sce,$timeout,cou
 			var dataList = {};
 			dataList.city_name = $scope.city_name;
 			dataList.country_id = $scope.country_id;
+                        dataList.id = $scope.id;
+                        if($scope.id == ''){
+                            delete(dataList.id);
+                        }
 			$http({
 				method: 'POST',
 				data : ObjecttoParams(dataList),
