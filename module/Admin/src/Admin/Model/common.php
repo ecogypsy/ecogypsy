@@ -46,10 +46,18 @@ class common {
                 'city_name' => $data['city_name'],
                 'country_id' => $data['country_id']
             );
-            
-            $insert = $this->sql->insert('city_master')
-                    ->values($newData);
-            $statement = $this->sql->prepareStatementForSqlObject($insert);
+
+            if (isset($data['id'])) {
+                $update = $this->sql->update('city_master')
+                        ->set($newData)
+                        ->where(array('id'=>$data['id']));
+                $statement = $this->sql->prepareStatementForSqlObject($update);
+            } else {
+                $insert = $this->sql->insert('city_master')
+                        ->values($newData);
+                $statement = $this->sql->prepareStatementForSqlObject($insert);
+            }
+
             $result = $statement->execute();
 
             return $result->getAffectedRows();
@@ -70,9 +78,12 @@ class common {
         }
     }
     
-    public function getCityList() {
+    public function getCityList($city_id='') {
         try {
             $select = $this->sql->select()->from('city_master');
+            if($city_id != ''){
+              $select =  $select->where(array('id'=>$city_id));
+            }
             $statement = $this->sql->prepareStatementForSqlObject($select);
             $result = $statement->execute();
 
@@ -165,6 +176,18 @@ class common {
 
             return $result->getAffectedRows();
         } catch (Exception $x) {
+            return array();
+        }
+    }
+    
+    public function deleteCity($data) {
+        try {
+            $select = $this->sql->delete('city_master')->where(array('id'=>$data['city_id']));
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute()->getAffectedRows();
+            
+            return $result;
+        } catch (Exception $e) {
             return array();
         }
     }

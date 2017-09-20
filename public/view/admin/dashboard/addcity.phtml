@@ -17,7 +17,7 @@
                                     <div class="primaryDrop">
                                         <select name="guiest_id3"  class="" sb="15257073" ng-model="country_id" ng-change="setCountry(country_id)" id='country_id' style="width:50%">
                                             <option value="">Select country</option>
-                                            <option ng-repeat="name in countryList" value="{{name.id}}">{{name.country_name}}</option>
+                                            <option ng-repeat="name in countryList" value="{{name.id}}" ng-selected=" name.id == country_id">{{name.country_name}}</option>
                                             
                                         </select>
                                     </div>
@@ -38,5 +38,6 @@
 <script>
    var app = angular.module('dashboard', []);
    var countryList = app.value('countryList',<?= json_encode($this->countryList)?>);
+   var cityData = app.value('cityData',<?= json_encode($this->cityData)?>);
 </script>
 <script src="<?= $this->basePath() . '/public/js/dashboard.js' ?>"></script>

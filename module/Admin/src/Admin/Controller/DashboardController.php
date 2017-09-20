@@ -46,12 +46,25 @@ class DashboardController extends AbstractActionController {
 
     public function addcityAction() {
         $countryList = array();
+        $cityList = array();
+        $city_id = $this->params()->fromQuery('data');
+        if (!empty($city_id)) {
+            $getCityList = $this->commonObj->getCityList($city_id);
+            if (!empty($getCityList)) {
+                foreach ($getCityList as $key => $value) {
+                    $cityList[$key] = $value;
+                }
+                
+            }
+        }
+        
         $getCountryList = $this->commonObj->getCountryList();
         if(!empty($getCountryList)){
             foreach ($getCountryList as $key => $value) {
                 $countryList[$key] = $value;
             }
         }
+        $this->view->cityData = $cityList;
         $this->view->countryList = $countryList;
         return $this->view;
     }
@@ -62,6 +75,10 @@ class DashboardController extends AbstractActionController {
         $registrationResponse = $this->commonObj->savecity($request);
         if (!empty($registrationResponse)) {
             $return = array('status' => true, 'msg' => 'Succesfully created');
+            if(isset($request['id'])){
+                $return = array('status' => true, 'msg' => 'Succesfully updated');
+            }
+             
         }
         echo json_encode($return);
         exit;
@@ -160,8 +177,30 @@ class DashboardController extends AbstractActionController {
         
         $this->view->cityList = $cityList;
         return $this->view;
-     } 
+     }
      
+     public function deletecityAction() {
+        $return = array('status' => false, 'msg' => 'error');
+        $request = (array) $this->getRequest()->getPost();
+        $response = $this->commonObj->deleteCity($request);
+        if (!empty($response)) {
+            $return = array('status' => true, 'msg' => 'Succesfully deleted');
+        }
+        echo json_encode($return);
+        exit;
+    }
+    
+    public function getcityAction() {
+        $cityList = array();
+        $getCityList = $this->commonObj->getCityList();
+        if (!empty($getCityList)) {
+            foreach ($getCityList as $key => $value) {
+                $cityList[$key] = $value;
+            }
+        }
+        echo json_encode($cityList);exit;
+    }
+
     public function pricesaveAction() {
         $request = $this->getRequest()->getPost();
         $params = array();
