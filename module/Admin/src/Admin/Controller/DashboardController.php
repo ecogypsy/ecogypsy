@@ -111,6 +111,18 @@ class DashboardController extends AbstractActionController {
     
     public function addlocationAction() {
         $cityList = array();
+        $locationList = array();
+        $id = $this->params()->fromQuery('data');
+        if (!empty($id)) {
+            $getLocationList = $this->commonObj->getLocationList($id);
+            if (!empty($getLocationList)) {
+                foreach ($getLocationList as $key => $value) {
+                    $locationList[$key] = $value;
+                }
+                
+            }
+        }
+        
         $getCityList = $this->commonObj->getCityList();
         if(!empty($getCityList)){
             foreach ($getCityList as $key => $value) {
@@ -128,21 +140,25 @@ class DashboardController extends AbstractActionController {
         
         $this->view->cityList = $cityList;
         $this->view->hotelList = $hotelList;
+        $this->view->locationData = $locationList;
         return $this->view;
     }
-    public function savelocationAction(){
-            $return = array('status' => false, 'msg' => 'error');
-            $request = (array) $this->getRequest()->getPost();
-            $files = $this->params()->fromFiles($request['upload_file']);
-            $registrationResponse = $this->commonObj->saveLocation($request);
-            if (!empty($registrationResponse)) {
-                $return = array('status' => true, 'msg' => 'Succesfully created');
+    public function savelocationAction() {
+        $return = array('status' => false, 'msg' => 'error');
+        $request = (array) $this->getRequest()->getPost();
+        $files = $this->params()->fromFiles($request['upload_file']);
+        $registrationResponse = $this->commonObj->saveLocation($request);
+        if (!empty($registrationResponse)) {
+            $return = array('status' => true, 'msg' => 'Succesfully created');
+            if (isset($request['id'])) {
+                $return = array('status' => true, 'msg' => 'Succesfully updated');
             }
-            echo json_encode($return);
-            exit;
         }
-        
-     public function addpackageAction() {
+        echo json_encode($return);
+        exit;
+    }
+
+    public function addpackageAction() {
         $locationList = array();
         $getLocationList = $this->commonObj->getLocationList();
         if(!empty($getLocationList)){
@@ -190,6 +206,18 @@ class DashboardController extends AbstractActionController {
         $this->view->hotelList = $hotelList;
         return $this->view;
     }
+    
+     public function locationlistAction() {
+        $locationList = array();
+        $getLocationList = $this->commonObj->getLocationList();
+        if (!empty($getLocationList)) {
+            foreach ($getLocationList as $key => $value) {
+                $locationList[$key] = $value;
+            }
+        }
+        $this->view->locationList = $locationList;
+        return $this->view;
+    }
 
     public function hotelDataAction() {
         $hotelList = array();
@@ -206,6 +234,17 @@ class DashboardController extends AbstractActionController {
         $return = array('status' => false, 'msg' => 'error');
         $request = (array) $this->getRequest()->getPost();
         $response = $this->commonObj->deleteHotel($request);
+        if (!empty($response)) {
+            $return = array('status' => true, 'msg' => 'Succesfully deleted');
+        }
+        echo json_encode($return);
+        exit;
+    }
+    
+    public function deletelocationAction() {
+        $return = array('status' => false, 'msg' => 'error');
+        $request = (array) $this->getRequest()->getPost();
+        $response = $this->commonObj->deleteLocation($request);
         if (!empty($response)) {
             $return = array('status' => true, 'msg' => 'Succesfully deleted');
         }
@@ -234,6 +273,17 @@ class DashboardController extends AbstractActionController {
             }
         }
         echo json_encode($cityList);exit;
+    }
+    
+    public function getlocationAction() {
+        $locationList = array();
+        $getLocationList = $this->commonObj->getLocationList();
+        if (!empty($getLocationList)) {
+            foreach ($getLocationList as $key => $value) {
+                $locationList[$key] = $value;
+            }
+        }
+        echo json_encode($locationList);exit;
     }
 
     public function pricesaveAction() {

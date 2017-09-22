@@ -57,6 +57,8 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
 				}
 				$timeout(function(){
 					$scope.successShow = false;
+                                        var path = serverUrl + 'admin/dashboard/hotellist';
+                                        window.location.href = path;
 					$scope.errorShow = false;
 				},2000)
 			});
