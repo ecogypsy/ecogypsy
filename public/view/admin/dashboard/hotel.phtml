@@ -10,46 +10,77 @@
                         <p>Add Hotel</p>
                         <div class="row">
                             <form  method="post" >
-                                <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="inputPassword3" placeholder="Hotel" ng-model="hotel_name">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2">
+                                        <p>Hotel Name</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-10">
+                                        <input type="text" class="form-control" id="inputPassword3" placeholder="Hotel" ng-model="hotel_name">
+                                    </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="primaryDrop">
-                                        <select name="guiest_id3" id="category" class="select-drop" sb="15257073" ng-model="category" >
-                                            <option value="">Select Category</option>
-                                            <option value="resort">Resort</option>
-                                            <option value="hotel">Hotel</option>
-                                            <option value="pg">PG</option>
-                                        </select>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2">
+                                        <p> Hotel category</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-10">
+                                            <select ng-model="category" id="category">
+                                                <option value="">Select Category</option>
+                                                <option value="resort">Resort</option>
+                                                <option value="hotel">Hotel</option>
+                                                <option value="pg">PG</option>
+                                            </select>
+                                    </div>
+                                </div>    
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2">
+                                        <p>Hotel Type</p>
+                                    </div>                                
+                                    <div class="col-sm-12 col-md-10">
+                                            <select ng-model="type" id="type">
+                                                <option value="">Select Type</option>
+                                                <option value="1star">One Star</option>
+                                                <option value="2star">Two Star</option>
+                                                <option value="3star">Three Star</option>
+                                                <option value="4star">Four Star</option>
+                                                <option value="5star">Five Star</option>
+                                            </select>
                                     </div>
                                 </div>
                                 
-                                <div class="col-sm-12">
-                                    <div class="primaryDrop">
-                                        <select name="guiest_id3" id="type" class="select-drop" sb="15257073" ng-model="type" >
-                                            <option value="">Select Type</option>
-                                            <option value="1star">One Star</option>
-                                            <option value="2star">Two Star</option>
-                                            <option value="3star">Three Star</option>
-                                            <option value="4star">Four Star</option>
-                                            <option value="5star">Five Star</option>
-                                        </select>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2">
+                                        <p>Hotel city</p>
+                                    </div>  
+                                    <div class="col-sm-12 col-md-10">
+                                            <select ng-model="city_id" id="city_id">
+                                                <option value="">Select city</option>
+                                                <option ng-repeat="name in cityList" value="{{name.id}}">{{name.city_name}}</option>
+
+                                            </select>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2">
+                                        <p>Upload cover image</p>
+                                    </div>  
+                                    <div class="col-sm-12 col-md-10">
+                                        <input type="file" id="uploadfile"  ng-model="upload_file">
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2">
+                                        <p>Upload other images</p>
+                                    </div>  
+                                    <div class="col-sm-12 col-md-4">
+                                        <input type="file" id="uploadfile"  ng-model="upload_file" onchange="uploadImageInTemp(this)">
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <img src="" id="profile-img-tag" width="100px" />
                                     </div>
                                 </div>
-                                
-                                <div class="col-sm-12">
-                                    <div class="primaryDrop">
-                                        <select name="guiest_id3" id="city_id" class="select-drop" sb="15257073" ng-model="city_id" >
-                                            <option value="">Select city</option>
-                                            <option ng-repeat="name in cityList" value="{{name.id}}">{{name.city_name}}</option>
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                   
-                                    <input type="file" class="form-control" id="uploadfile"  ng-model="upload_file">
-                                </div>
+                                <input type="hidden" name="hotel_id" id="hotel_id" ng-model="hotel_id" value="">
+                                <input type="hidden" value="" name="tempfoldername" id="tempfoldername" ng-model="tempfoldername">
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn buttonTransparent" ng-click="addhotel()">Add Hotel</button>
                                 </div>
