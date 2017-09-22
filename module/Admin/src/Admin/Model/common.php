@@ -103,9 +103,9 @@ class common {
                 'cover_image' => $data['upload_file'],
             );
             
-            $insert = $this->sql->insert('hotel_master')
-                    ->values($newData);
-            $statement = $this->sql->prepareStatementForSqlObject($insert);
+                $insert = $this->sql->insert('hotel_master')
+                        ->values($newData);
+                $statement = $this->sql->prepareStatementForSqlObject($insert);
             $result = $statement->execute();
 
             return $result->getAffectedRows();
@@ -167,6 +167,7 @@ class common {
                 'description' => $data['description'],
                 'start_date' => $data['start_date'],
                 'end_date' => $data['end_date'],
+                'price' => $data['price']
             );
             
             $insert = $this->sql->insert('package_master')
@@ -183,6 +184,18 @@ class common {
     public function deleteCity($data) {
         try {
             $select = $this->sql->delete('city_master')->where(array('id'=>$data['city_id']));
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute()->getAffectedRows();
+            
+            return $result;
+        } catch (Exception $e) {
+            return array();
+        }
+    }
+    
+    public function deleteHotel($data) {
+        try {
+            $select = $this->sql->delete('hotel_master')->where(array('id'=>$data['id']));
             $statement = $this->sql->prepareStatementForSqlObject($select);
             $result = $statement->execute()->getAffectedRows();
             
