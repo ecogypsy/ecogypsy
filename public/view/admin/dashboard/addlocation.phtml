@@ -15,9 +15,9 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="primaryDrop">
-                                        <select name="guiest_id3" id="city_id" class="select-drop" sb="15257073" ng-model="city_id" ng-change="getHotel()" >
+                                        <select name="guiest_id3" id="city_id" class="width" sb="15257073" ng-model="city_id" ng-change="getHotel()" >
                                             <option value="">Select city</option>
-                                            <option ng-repeat="name in cityList" value="{{name.id}}">{{name.city_name}}</option>
+                                            <option ng-repeat="name in cityList" value="{{name.id}}" ng-selected="name.id == city_id">{{name.city_name}}</option>
                                             
                                         </select>                                  
                                     </div>
@@ -26,9 +26,9 @@
                                 <div class="col-sm-12">
                                     <br>
                                     <div class="primaryDrop">
-                                        <select name="guiest_id3" id="hotel" class="" sb="15257073" ng-model="hotel_id"  >
+                                        <select name="guiest_id3" id="hotel" class="width" sb="15257073" ng-model="hotel_id"  >
                                             <option value="">Select hotel</option>
-                                            <!--<option ng-repeat="name in hotelList" value="{{name.id}}">{{name.name}}</option>-->
+                                            <option ng-repeat="name in hotelList" value="{{name.id}}" ng-selected="name.id == hotel_id">{{name.name}}</option>
                                             
                                         </select>
                                     </div>
@@ -55,10 +55,15 @@
         </div>
     </div>
 </section>
-
+<style>
+    .width{
+        width:50%;
+    }
+</style>
 <script>
    var app = angular.module('location', []);
    var cityList = app.value('cityList',<?= json_encode($this->cityList)?>);
    var hotelList = app.value('hotelList',<?= json_encode($this->hotelList)?>);
+   var locationData = app.value('locationData',<?= json_encode($this->locationData)?>);
 </script>
 <script src="<?= $this->basePath() . '/public/js/addlocation.js' ?>"></script>

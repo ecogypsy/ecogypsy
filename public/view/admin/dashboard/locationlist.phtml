@@ -1,0 +1,45 @@
+<!-- RECENT ACTIVITY SECTION -->
+<section class="recentActivitySection">
+    <div class="container" ng-app="locationList" ng-controller="locationListController">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="recentActivityContent bg-ash">
+                    <div class="dashboardPageTitle">
+                        <div class="row">
+                            <div  class="col-sm-12 col-md-6 pull-left">   
+                                <h2>Location </h2>
+                            </div>
+                            <div  class="col-sm-12 col-md-6 pull-right">   
+                                <ul class="list-inline detailsBtn">
+                                    <li><a href="<?=$GLOBALS['SITE_ADMIN_URL']?>dashboard/addlocation" class="btn buttonTransparent buttonCustomPrimary">Add Location</a></li>
+                                </ul>  
+                            </div>    
+                        </div>
+                        <p class="danger" style="color:red" ng-show="errorShow">{{errorMsg}}</p>
+                        <p class="danger" style="color:green" ng-show="successShow">{{successMsg}}</p>
+                    </div>
+                    <div class="table-responsive"  data-pattern="priority-columns">
+                        <table class="table listingsTable">
+                            <tr class="rowItem">
+                                <td>Location Name</td>
+                                <td>Action</td>                                
+                            </tr>
+                            <tr class="rowItem" ng-repeat="(key,value) in locationList">
+                                <td>{{value.location_name}}</td>
+                                <td>
+                                    <a href="<?=$GLOBALS['SITE_ADMIN_URL']?>dashboard/addlocation?data={{value.id}}"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" ng-click="delete(value.id)"><i class="fa fa-trash-o" ></i></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+   var app = angular.module('locationList', []);
+   var locationList = app.value('locationList',<?= json_encode($this->locationList)?>);
+</script>
+<script src="<?= $this->basePath() . '/public/js/locationlist.js' ?>"></script>
