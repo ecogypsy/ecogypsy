@@ -27,11 +27,16 @@ app.controller('addpackageController', function ($scope, $http, $sce,$timeout,lo
 			error = 'Please enter total seat' ;
 		}
                 
+                if($scope.price == undefined || $scope.price == ''){
+			error = 'Please enter price ' ;
+		}
+                
 		if(error == ' '){
 			var dataList = {};
 			dataList.package_name = $scope.package_name;
 			dataList.total_seat = $scope.total_seat;
                         dataList.location = $scope.location;
+                        dataList.price = $scope.price;
 			dataList.description = $scope.description;
                         dataList.start_date =  $("#start_date").val();
                         dataList.end_date = $("#end_date").val();

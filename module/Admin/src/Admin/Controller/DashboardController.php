@@ -104,7 +104,7 @@ class DashboardController extends AbstractActionController {
         $registrationResponse = $this->commonObj->saveHotel($request);
         if (!empty($registrationResponse)) {
             $return = array('status' => true, 'msg' => 'Succesfully created');
-        }
+            }
         echo json_encode($return);
         exit;
     }
@@ -179,7 +179,42 @@ class DashboardController extends AbstractActionController {
         return $this->view;
      }
      
-     public function deletecityAction() {
+     public function hotellistAction() {
+        $hotelList = array();
+        $getHotelList = $this->commonObj->gethotelList();
+        if (!empty($getHotelList)) {
+            foreach ($getHotelList as $key => $value) {
+                $hotelList[$key] = $value;
+            }
+        }
+        $this->view->hotelList = $hotelList;
+        return $this->view;
+    }
+
+    public function hotelDataAction() {
+        $hotelList = array();
+        $getHotelList = $this->commonObj->gethotelList();
+        if (!empty($getHotelList)) {
+            foreach ($getHotelList as $key => $value) {
+                $hotelList[$key] = $value;
+            }
+        }
+        echo json_encode($hotelList);die;
+    }
+
+    public function deletehotelAction() {
+        $return = array('status' => false, 'msg' => 'error');
+        $request = (array) $this->getRequest()->getPost();
+        $response = $this->commonObj->deleteHotel($request);
+        if (!empty($response)) {
+            $return = array('status' => true, 'msg' => 'Succesfully deleted');
+        }
+        echo json_encode($return);
+        exit;
+    }
+    
+    
+    public function deletecityAction() {
         $return = array('status' => false, 'msg' => 'error');
         $request = (array) $this->getRequest()->getPost();
         $response = $this->commonObj->deleteCity($request);
