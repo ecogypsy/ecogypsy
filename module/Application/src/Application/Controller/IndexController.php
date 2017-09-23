@@ -176,20 +176,34 @@ class IndexController extends AbstractActionController
 	public function createbookingAction(){
 		$request = (array) $this->getRequest()->getPost();
 		// create user
-		$userArr = array();
-		$userArr['name'] = $request['first_name'].!empty($request['last_name'])?$request['last_name']:'';
-		$userArr['email'] = $request['email'];
-		$userArr['number'] = $request['mobile'];
-		$userArr['password'] = 123;
-		$registrationResponse = $this->commonObj->registration($userArr);
-        if (!empty($registrationResponse)) {
+		$user_id ;
+		$checkUserExist =  $this->commonObj->checkUserExist(array('email'=>$request['email']));
+		if(!empty($checkUserExist)){
+			foreach($checkUserExist as $value){
+				$user_id = $value['id'];
+			}
+		}
+		if(empty($user_id)){
+			$userArr = array();
+			$userArr['name'] = $request['first_name'];
+			if(!empty($request['last_name'])){
+			    $userArr['name'] = $request['first_name'].' '.$request['last_name'];
+			}
+			$userArr['email'] = $request['email'];
+			$userArr['number'] = $request['mobile'];
+			$userArr['password'] = 123;
+			$user_id = $this->commonObj->registration($userArr);
+		}
+		
+		
+        if (!empty($user_id)) {
             $bookingArr = array();
 			$bookingArr['package_id'] = $request['package_id'];
 			$bookingArr['location_id'] = $request['location_id'];
 			$bookingArr['number_of_person'] = $request['number_of_person'];
 			$bookingArr['checkin_date'] = $request['checkin_date'];
 			$bookingArr['checkout_date'] = $request['checkout_date'];
-			$bookingArr['user_id'] = $registrationResponse;
+			$bookingArr['user_id'] = $user_id;
 			$bookingresponce = $this->commonObj->createBooking($bookingArr);
 			if($bookingresponce > 0){
 				$path = $GLOBALS['SITE_APP_URL'].'index/bookingconfirm?data=success';

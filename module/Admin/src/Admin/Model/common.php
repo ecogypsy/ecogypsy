@@ -264,4 +264,18 @@ class common {
             return array();
         }
     }
+
+	 public function checkUserExist($data) {
+        try {
+            $select = $this->sql->select()->from('user_master');
+            $select =  $select->where($data);
+			
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute();
+
+            return $result;
+        } catch (Exception $e) {
+            return array();
+        }
+    }
 }
