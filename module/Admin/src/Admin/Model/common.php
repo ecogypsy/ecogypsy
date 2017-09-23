@@ -35,7 +35,7 @@ class common {
             $statement = $this->sql->prepareStatementForSqlObject($insert);
             $result = $statement->execute();
 
-            return $result->getAffectedRows();
+            return $result->getGeneratedValue();
         } catch (Exception $x) {
             return array();
         }
@@ -235,14 +235,32 @@ class common {
         }
     }
     
-    public function getPackageList() {
+    public function getPackageList($id ='') {
         try {
             $select = $this->sql->select()->from('package_master')->order('start_date');
+			if($id != ''){
+              $select =  $select->where(array('id'=>$id));
+            }
+			
             $statement = $this->sql->prepareStatementForSqlObject($select);
             $result = $statement->execute();
 
             return $result;
         } catch (Exception $e) {
+            return array();
+        }
+    }
+	
+	public function createBooking($data) {
+        try {
+            
+            $insert = $this->sql->insert('booking_master')
+                    ->values($data);
+            $statement = $this->sql->prepareStatementForSqlObject($insert);
+            $result = $statement->execute();
+
+            return $result->getGeneratedValue();
+        } catch (Exception $x) {
             return array();
         }
     }
