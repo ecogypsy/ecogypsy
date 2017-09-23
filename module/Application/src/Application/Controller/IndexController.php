@@ -35,6 +35,17 @@ class IndexController extends AbstractActionController
             }
         }    
 		$this->view->packageList = $package;
+
+		$location = array();
+        //$userDetails = $this->commonObj->getUserDetail();
+        $locationList = $this->commonObj->getLocationList();
+        if(!empty($locationList)){
+            foreach ($locationList as $key => $value) {
+                $location[] = $value;
+            }
+        }    
+		$this->view->locationList = $location;
+
         return $this->view;
     }
     
@@ -228,5 +239,12 @@ class IndexController extends AbstractActionController
     public function galleryAction(){
 		
         return $this->view;
-    }    
+    } 
+
+	public function userinfoAction(){
+		$request = (array) $this->getRequest()->getPost();
+		$this->view->data = $request;
+
+        return $this->view;
+    } 
 }
