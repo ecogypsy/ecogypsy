@@ -100,8 +100,10 @@ class common {
                 'name' => $data['hotel_name'],
                 'category' => $data['category'],
                 'type' => $data['type'],
-                'cover_image' => $data['upload_file'],
             );      
+            if(!empty($data['ext'])) {
+                $data['cover_image'] = $data['ext'];
+            }
             if(!empty($data['hotel_id'])) {
                 $query = $this->sql->update()->table('hotel_master')
                     ->set($newData)
