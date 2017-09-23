@@ -102,7 +102,7 @@ class common {
                 'type' => $data['type'],
             );      
             if(!empty($data['ext'])) {
-                $data['cover_image'] = $data['ext'];
+                $newData['cover_image'] = $data['ext'];
             }
             if(!empty($data['hotel_id'])) {
                 $query = $this->sql->update()->table('hotel_master')
@@ -235,6 +235,19 @@ class common {
         } catch (Exception $e) {
             return array();
         }
+    }
+    
+    public function readFileFromFolder($path) {
+        $fileList = array();
+        if($dir = opendir($path)) {
+            while($file= readdir($dir)) {
+                if(!($file =='.' || $file=='..')) {
+                   $fileList[] = $path.'/'.$file; 
+                }
+            }
+        }
+        
+        return $fileList;
     }
 
 }

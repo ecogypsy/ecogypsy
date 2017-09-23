@@ -12,7 +12,7 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
     $scope.cityList = cityList;
     $scope.hotel_id = 0;
     $scope.tempfoldername = '';
-   
+   $scope.readhotelimage();
     $scope.addhotel = function () {
                 $scope.upload_file = $('input[type=file]').val();
                 $scope.category = $('#category').find(":selected").val();
@@ -128,6 +128,17 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
 		}
 
 	}      
+        
+        $scope.readhotelimage = function() {
+            $http({
+                    method: 'POST',
+                    data : ObjecttoParams(dataList),
+                    url: serverUrl + 'admin/dashboard/readhotelimage',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            }).success(function (response) {
+                console.log(response);
+            });            
+        };
 });
 function readURL(input) {
     if (input.files && input.files[0]) {

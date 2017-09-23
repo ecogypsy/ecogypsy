@@ -424,4 +424,15 @@ class DashboardController extends AbstractActionController {
         echo json_encode($return);
         die;
     }
+    
+    function readhotelimageAction() {
+        $request = (array) $this->getRequest()->getPost();
+        $fileList = array();
+        if($request['hotel_id']) {
+            $path = $GLOBALS['HOTELIMAGEPATH'].'/'.$request['hotel_id'];
+            $fileList = $this->commonObj-readFileFromFolder($path);
+        }
+        echo json_encode($fileList);
+        die;
+    }
 }
