@@ -142,10 +142,17 @@ class common {
                 'description' => $data['description'],
                 'image' => $data['upload_file'],
             );
-            
-            $insert = $this->sql->insert('location_master')
+            if (isset($data['id'])) {
+                $update = $this->sql->update('location_master')
+                        ->set($newData)
+                        ->where(array('id'=>$data['id']));
+                $statement = $this->sql->prepareStatementForSqlObject($update);
+            } else {
+                $insert = $this->sql->insert('location_master')
                     ->values($newData);
             $statement = $this->sql->prepareStatementForSqlObject($insert);
+            }
+            
             $result = $statement->execute();
 
             return $result->getAffectedRows();
@@ -154,9 +161,12 @@ class common {
         }
     }
     
-    public function getLocationList() {
+    public function getLocationList($id = '') {
         try {
             $select = $this->sql->select()->from('location_master');
+            if($id != ''){
+              $select =  $select->where(array('id'=>$id));
+            }
             $statement = $this->sql->prepareStatementForSqlObject($select);
             $result = $statement->execute();
 
@@ -192,6 +202,18 @@ class common {
     public function deleteCity($data) {
         try {
             $select = $this->sql->delete('city_master')->where(array('id'=>$data['city_id']));
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute()->getAffectedRows();
+            
+            return $result;
+        } catch (Exception $e) {
+            return array();
+        }
+    }
+    
+    public function deleteLocation($data) {
+        try {
+            $select = $this->sql->delete('location_master')->where(array('id'=>$data['location_id']));
             $statement = $this->sql->prepareStatementForSqlObject($select);
             $result = $statement->execute()->getAffectedRows();
             

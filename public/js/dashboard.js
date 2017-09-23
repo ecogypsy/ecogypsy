@@ -56,6 +56,8 @@ app.controller('dashboardController', function ($scope, $http, $sce,$timeout,cou
 				}
 				$timeout(function(){
 					$scope.successShow = false;
+                                        var path = serverUrl + 'admin/dashboard/citylist';
+                                        window.location.href = path;
 					$scope.errorShow = false;
 				},2000)
 			});
