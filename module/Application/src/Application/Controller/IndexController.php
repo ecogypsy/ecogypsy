@@ -22,6 +22,7 @@ class IndexController extends AbstractActionController
         $this->view =  new ViewModel();
         $this->session = new Container('User');
         $this->commonObj = new common();
+		$GLOBALS['SITE_APP_URL'] = 'http://' .$_SERVER['HTTP_HOST'].'/ecogypsy/application/';
     }
     public function indexAction()
     {
@@ -155,7 +156,63 @@ class IndexController extends AbstractActionController
 		$this->view->packageList = $package;
         return $this->view;
     }
+	
+	public function bookingAction(){
+		$packageList = array();
+		$id = $this->params()->fromQuery('data');
+        if (!empty($id)) {
+            $getPackageList = $this->commonObj->getPackageList($id);
+            if (!empty($getPackageList)) {
+                foreach ($getPackageList as $key => $value) {
+                    $packageList[] = $value;
+                }
+                
+            }
+        }
+		$this->view->packageList = $packageList;
+        return $this->view;
+    }
+	
+	public function createbookingAction(){
+		$request = (array) $this->getRequest()->getPost();
+		// create user
+		$userArr = array();
+		$userArr['name'] = $request['first_name'].!empty($request['last_name'])?$request['last_name']:'';
+		$userArr['email'] = $request['email'];
+		$userArr['number'] = $request['mobile'];
+		$userArr['password'] = 123;
+		$registrationResponse = $this->commonObj->registration($userArr);
+        if (!empty($registrationResponse)) {
+            $bookingArr = array();
+			$bookingArr['package_id'] = $request['package_id'];
+			$bookingArr['location_id'] = $request['location_id'];
+			$bookingArr['number_of_person'] = $request['number_of_person'];
+			$bookingArr['checkin_date'] = $request['checkin_date'];
+			$bookingArr['checkout_date'] = $request['checkout_date'];
+			$bookingArr['user_id'] = $registrationResponse;
+			$bookingresponce = $this->commonObj->createBooking($bookingArr);
+			if($bookingresponce > 0){
+				$path = $GLOBALS['SITE_APP_URL'].'index/bookingconfirm?data=success';
+				header('Location:'.$path);exit;
+			}else{
+				$path = $GLOBALS['SITE_APP_URL'].'index/bookingconfirm?id=error';
+			     header('Location:'.$path);exit;
+			}
+        }else{
+				$path = $GLOBALS['SITE_APP_URL'].'index/bookingconfirm?id=error';
+			  header('Location:'.$path);exit;
+			}
+       
+    }
+	
+	public function bookingconfirmAction(){
+		$id = $this->params()->fromQuery('data');
+        $this->view->msg = $id;
+        return $this->view;
+    }    
+	
     public function galleryAction(){
-        return new ViewModel();
+		
+        return $this->view;
     }    
 }
