@@ -3,13 +3,17 @@
         <br/>
         <div class="row">
             <div class="col-xs-12">
+			<?php 
+				foreach($this->packageList as $value){
+			 ?>
                 <div class="media packagesList">
                     <a class="media-left fancybox-pop" href="<?=$this->basePath()?>/img/packages/package-list-01.jpg">
                         <img class="media-object" src="<?=$this->basePath()?>/img/packages/package-list-01.jpg" alt="Image">
                     </a>
                     <div class="media-body">
+					
                         <div class="bodyLeft">
-                            <h4 class="media-heading"><a href="single-package-right-sidebar.html">Suspendisse Tour</a></h4>
+                            <h4 class="media-heading"><a href="single-package-right-sidebar.html"><?= $value['package_name']?></a></h4>
                             <div class="countryRating">
                                 <span>Asia</span>
                                 <ul class="list-inline rating">
@@ -20,289 +24,27 @@
                                     <li><i class="fa fa-star" aria-hidden="true"></i></li>
                                 </ul>
                             </div>
-                            <p>Integer purus ex, dictum nec elementum eu, tristique vel lectus. Donec rutrum lectus et pharetra egestas. Proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis eu magna sagittis.</p>
+                            <p><?= $value['description']?></p>
                             <ul class="list-inline detailsBtn">
-                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> 27 jan, 2016</span></li>
-                                <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 days</span></li>
+                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> <?= date('d M,Y',strtotime($value['start_date']))?></span></li>
+                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> <?= date('d M,Y',strtotime($value['end_date']))?></span></li>
                             </ul>
-                        </div>
+                        </div>	
                         <div class="bodyRight">
                             <div class="bookingDetails">
-                                <h2>$499</h2>
+                                <h2>INR <?=$value['price']?></h2>
                                 <p>Per Person</p>
                                 <a href="single-package-right-sidebar.html" class="btn buttonTransparent clearfix">Details</a>
-                                <a data-toggle="modal" data-target="#inquiryModal" href="#" class="btn buttonTransparent">Inquiry</a>
+                                <a data-toggle="modal" data-target="#inquiryModal" href="#" class="btn buttonTransparent">Book</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="media packagesList">
-                    <a class="media-left fancybox-pop" href="<?=$this->basePath()?>/img/packages/package-list-02.jpg">
-                        <img class="media-object" src="<?=$this->basePath()?>/img/packages/package-list-02.jpg" alt="Image">
-                    </a>
-                    <div class="media-body">
-                        <div class="bodyLeft">
-                            <h4 class="media-heading"><a href="single-package-right-sidebar.html">maldives tour</a></h4>
-                            <div class="countryRating">
-                                <span>Asia</span>
-                                <ul class="list-inline rating">
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                </ul>
-                            </div>
-                            <p>Proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis eu magna sagittis. Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat. Suspendisse non feugiat mi.</p>
-                            <ul class="list-inline detailsBtn">
-                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> 27 jan, 2016</span></li>
-                                <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 days</span></li>
-                            </ul>
-                        </div>
-                        <div class="bodyRight">
-                            <div class="bookingDetails">
-                                <h2>$349</h2>
-                                <p>Per Person</p>
-                                <a href="single-package-right-sidebar.html" class="btn buttonTransparent clearfix">Details</a>
-                                <a data-toggle="modal" data-target="#inquiryModal" href="#" class="btn buttonTransparent">Inquiry</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="media packagesList">
-                    <a class="media-left fancybox-pop" href="<?=$this->basePath()?>/img/packages/package-list-03.jpg">
-                        <img class="media-object" src="<?=$this->basePath()?>/img/packages/package-list-03.jpg" alt="Image">
-                    </a>
-                    <div class="media-body">
-                        <div class="bodyLeft">
-                            <h4 class="media-heading"><a href="single-package-right-sidebar.html">maldives tour</a></h4>
-                            <div class="countryRating">
-                                <span>Asia</span>
-                                <ul class="list-inline rating">
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                </ul>
-                            </div>
-                            <p>Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat. Suspendisse non feugiat mi. Sagittis proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis eu magna.</p>
-                            <ul class="list-inline detailsBtn">
-                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> 27 jan, 2016</span></li>
-                                <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 days</span></li>
-                            </ul>
-                        </div>
-                        <div class="bodyRight">
-                            <div class="bookingDetails">
-                                <h2>$599</h2>
-                                <p>Per Person</p>
-                                <a href="single-package-right-sidebar.html" class="btn buttonTransparent clearfix">Details</a>
-                                <a class="btn buttonTransparent" href='booking-1.html'>Book</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="media packagesList">
-                    <a class="media-left fancybox-pop" href="<?=$this->basePath()?>/img/packages/package-list-04.jpg">
-                        <img class="media-object" src="<?=$this->basePath()?>/img/packages/package-list-04.jpg" alt="Image">
-                    </a>
-                    <div class="media-body">
-                        <div class="bodyLeft">
-                            <h4 class="media-heading"><a href="single-package-right-sidebar.html">maldives tour</a></h4>
-                            <div class="countryRating">
-                                <span>Asia</span>
-                                <ul class="list-inline rating">
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                </ul>
-                            </div>
-                            <p>Sagittis proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis eu magna. Suspendisse non feugiat mi. Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat.</p>
-                            <ul class="list-inline detailsBtn">
-                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> 27 jan, 2016</span></li>
-                                <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 days</span></li>
-                            </ul>
-                        </div>
-                        <div class="bodyRight">
-                            <div class="bookingDetails">
-                                <h2>$199</h2>
-                                <p>Per Person</p>
-                                <a href="single-package-right-sidebar.html" class="btn buttonTransparent clearfix">Details</a>
-                                <a class="btn buttonTransparent" href='booking-1.html'>Book</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="media packagesList">
-                    <a class="media-left fancybox-pop" href="<?=$this->basePath()?>/img/packages/package-list-05.jpg">
-                        <img class="media-object" src="<?=$this->basePath()?>/img/packages/package-list-05.jpg" alt="Image">
-                    </a>
-                    <div class="media-body">
-                        <div class="bodyLeft">
-                            <h4 class="media-heading"><a href="single-package-right-sidebar.html">maldives tour</a></h4>
-                            <div class="countryRating">
-                                <span>Asia</span>
-                                <ul class="list-inline rating">
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                </ul>
-                            </div>
-                            <p>Suspendisse non feugiat mi. Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat. Donec rutrum lectus et pharetra egestas. Integer purus ex, dictum nec elementum eu, tristique vel lectus.</p>
-                            <ul class="list-inline detailsBtn">
-                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> 27 jan, 2016</span></li>
-                                <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 days</span></li>
-                            </ul>
-                        </div>
-                        <div class="bodyRight">
-                            <div class="bookingDetails">
-                                <h2>$999</h2>
-                                <p>Per Person</p>
-                                <a href="single-package-right-sidebar.html" class="btn buttonTransparent clearfix">Details</a>
-                                <a data-toggle="modal" data-target="#inquiryModal" href="#" class="btn buttonTransparent">book</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="media packagesList">
-                    <a class="media-left fancybox-pop" href="<?=$this->basePath()?>/img/packages/package-list-06.jpg">
-                        <img class="media-object" src="<?=$this->basePath()?>/img/packages/package-list-06.jpg" alt="Image">
-                    </a>
-                    <div class="media-body">
-                        <div class="bodyLeft">
-                            <h4 class="media-heading"><a href="single-package-right-sidebar.html">maldives tour</a></h4>
-                            <div class="countryRating">
-                                <span>Asia</span>
-                                <ul class="list-inline rating">
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                </ul>
-                            </div>
-                            <p>Donec rutrum lectus et pharetra egestas. Integer purus ex, dictum nec elementum eu, tristique vel lectus. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <ul class="list-inline detailsBtn">
-                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> 27 jan, 2016</span></li>
-                                <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 days</span></li>
-                            </ul>
-                        </div>
-                        <div class="bodyRight">
-                            <div class="bookingDetails">
-                                <h2>$1199</h2>
-                                <p>Per Person</p>
-                                <a href="single-package-right-sidebar.html" class="btn buttonTransparent clearfix">Details</a>
-                                <a data-toggle="modal" data-target="#inquiryModal" href="#" class="btn buttonTransparent">book</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="media packagesList">
-                    <a class="media-left fancybox-pop" href="<?=$this->basePath()?>/img/packages/package-list-07.jpg">
-                        <img class="media-object" src="<?=$this->basePath()?>/img/packages/package-list-07.jpg" alt="Image">
-                    </a>
-                    <div class="media-body">
-                        <div class="bodyLeft">
-                            <h4 class="media-heading"><a href="single-package-right-sidebar.html">maldives tour</a></h4>
-                            <div class="countryRating">
-                                <span>Asia</span>
-                                <ul class="list-inline rating">
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                </ul>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <ul class="list-inline detailsBtn">
-                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> 27 jan, 2016</span></li>
-                                <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 days</span></li>
-                            </ul>
-                        </div>
-                        <div class="bodyRight">
-                            <div class="bookingDetails">
-                                <h2>$299</h2>
-                                <p>Per Person</p>
-                                <a href="single-package-right-sidebar.html" class="btn buttonTransparent clearfix">Details</a>
-                                <a data-toggle="modal" data-target="#inquiryModal" href="#" class="btn buttonTransparent">book</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="media packagesList">
-                    <a class="media-left fancybox-pop" href="<?=$this->basePath()?>/img/packages/package-list-08.jpg">
-                        <img class="media-object" src="<?=$this->basePath()?>/img/packages/package-list-08.jpg" alt="Image">
-                    </a>
-                    <div class="media-body">
-                        <div class="bodyLeft">
-                            <h4 class="media-heading"><a href="single-package-right-sidebar.html">maldives tour</a></h4>
-                            <div class="countryRating">
-                                <span>Asia</span>
-                                <ul class="list-inline rating">
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                </ul>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <ul class="list-inline detailsBtn">
-                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> 27 jan, 2016</span></li>
-                                <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 days</span></li>
-                            </ul>
-                        </div>
-                        <div class="bodyRight">
-                            <div class="bookingDetails">
-                                <h2>$349</h2>
-                                <p>Per Person</p>
-                                <a href="single-package-right-sidebar.html" class="btn buttonTransparent clearfix">Details</a>
-                                <a data-toggle="modal" data-target="#inquiryModal" href="#" class="btn buttonTransparent">book</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="media packagesList">
-                    <a class="media-left fancybox-pop" href="<?=$this->basePath()?>/img/packages/package-list-09.jpg">
-                        <img class="media-object" src="<?=$this->basePath()?>/img/packages/package-list-09.jpg" alt="Image">
-                    </a>
-                    <div class="media-body">
-                        <div class="bodyLeft">
-                            <h4 class="media-heading"><a href="single-package-right-sidebar.html">maldives tour</a></h4>
-                            <div class="countryRating">
-                                <span>Asia</span>
-                                <ul class="list-inline rating">
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                </ul>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <ul class="list-inline detailsBtn">
-                                <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i> 27 jan, 2016</span></li>
-                                <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 days</span></li>
-                            </ul>
-                        </div>
-                        <div class="bodyRight">
-                            <div class="bookingDetails">
-                                <h2>$699</h2>
-                                <p>Per Person</p>
-                                <a href="single-package-right-sidebar.html" class="btn buttonTransparent clearfix">Details</a>
-                                <a data-toggle="modal" data-target="#inquiryModal" href="#" class="btn buttonTransparent">book</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				
+				<?php }?>
             </div>
         </div>
-        <div class="row">
+        <!--div class="row">
             <div class="col-xs-12">
                 <div class="paginationCenter">
                     <ul class="pagination">
@@ -324,6 +66,6 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div-->
     </div>
 </section>

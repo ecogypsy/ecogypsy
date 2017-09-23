@@ -230,16 +230,26 @@
           </div>
         </div>
         <div class="row">
+		<?php 
+			$limit = 3;
+			if(count($this->packageList) < 3){
+				$limit = count($this->packageList);
+			}
+		    for($i = 0; $i < $limit ; $i++){
+			
+		
+		?>
+		
           <div class="col-sm-4 col-xs-12">
             <div class="thumbnail deals">
               <img src="<?=$this->basePath()?>/img/home/deal/deal-01.jpg" alt="deal-image">
               <a href="single-package-right-sidebar.html" class="pageLink"></a>
               <div class="discountInfo">
-                <div class="discountOffer">
+                <!--div class="discountOffer">
                   <h4>
-                    50% <span>OFF</span>
+                   50% <span>OFF</span>
                   </h4>
-                </div>
+                </div-->
                 <ul class="list-inline rating homePage">
                   <li><i class="fa fa-star" aria-hidden="true"></i></li>
                   <li><i class="fa fa-star" aria-hidden="true"></i></li>
@@ -248,18 +258,18 @@
                   <li><i class="fa fa-star" aria-hidden="true"></i></li>
                 </ul>
                 <ul class="list-inline duration">
-                  <li>7 days</li>
-                  <li>15 hrs</li>
-                  <li>15 min</li>
+                  <li><?= $this->packageList[$i]['start_date'] ?></li>
+                  <li>To</li>
+                  <li><?= $this->packageList[$i]['end_date'] ?></li>
                 </ul>
               </div>
               <div class="caption">
-                <h4><a href="single-package-right-sidebar.html" class="captionTitle">Suspendisse Blandit</a></h4>
-                <p>Integer purus ex, dictum nec elementum eu, tristique vel lectus. Donec rutrum lectus et pharetra egestas.</p>
+                <h4><a href="single-package-right-sidebar.html" class="captionTitle"><?= $this->packageList[$i]['package_name'] ?></a></h4>
+                <p><?= $this->packageList[$i]['description'] ?></p>
                 <div class="detailsInfo">
                   <h5>
                     <span>Start From</span>
-                    $299
+                    <?= $this->packageList[$i]['price'] ?>
                   </h5>
                   <ul class="list-inline detailsBtn">
                     <li><a href="single-package-right-sidebar.html" class="btn buttonTransparent buttonCustomPrimary">Details</a></li>
@@ -269,92 +279,16 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-4 col-xs-12">
-            <div class="thumbnail deals">
-              <img src="<?=$this->basePath()?>/img/home/deal/deal-02.jpg" alt="deal-image">
-              <a href="single-package-fullwidth.html" class="pageLink"></a>
-              <div class="discountInfo">
-                <div class="discountOffer">
-                  <h4>
-                    Free <span>Gift</span>
-                  </h4>
-                </div>
-                <ul class="list-inline rating homePage">
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                </ul>
-                <ul class="list-inline duration">
-                  <li>12 days</li>
-                  <li>3 hrs</li>
-                  <li>12 min</li>
-                </ul>
-              </div>
-              <div class="caption">
-                <h4><a href="single-package-fullwidth.html" class="captionTitle">Suspendisse Eros Erat</a></h4>
-                <p>Proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis eu magna sagittis.</p>
-                <div class="detailsInfo">
-                  <h5>
-                    <span>Start From</span>
-                    $499
-                  </h5>
-                  <ul class="list-inline detailsBtn">
-                    <li><a href="single-package-right-sidebar.html" class="btn buttonTransparent buttonCustomPrimary">Details</a></li>
-                    <li><a data-toggle="modal" data-target="#inquiryModal" href="#" class="btn buttonTransparent buttonCustomPrimary">Inquiry</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 col-xs-12">
-            <div class="thumbnail deals">
-              <img src="<?=$this->basePath()?>/img/home/deal/deal-03.jpg" alt="deal-image">
-              <a href="single-package-right-sidebar.html" class="pageLink"></a>
-              <div class="discountInfo">
-                <div class="discountOffer">
-                  <h4>
-                    25% <span>OFF</span>
-                  </h4>
-                </div>
-                <ul class="list-inline rating homePage">
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                </ul>
-                <ul class="list-inline duration">
-                  <li>17 days</li>
-                  <li>13 hrs</li>
-                  <li>18 min</li>
-                </ul>
-              </div>
-              <div class="caption">
-                <h4><a href="single-package-right-sidebar.html" class="captionTitle">Quisque Placerat Nunc</a></h4>
-                <p>Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat. Suspendisse non feugiat mi.</p>
-                <div class="detailsInfo">
-                  <h5>
-                    <span>Start From</span>
-                    $399
-                  </h5>
-                  <ul class="list-inline detailsBtn">
-                    <li><a href="single-package-right-sidebar.html" class="btn buttonTransparent buttonCustomPrimary">Details</a></li>
-                    <li><a href='booking-1.html' class="btn buttonTransparent buttonCustomPrimary">Book now</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+		  
+			<?php }?>
         </div>
-        <div class="row">
+        <!--div class="row">
           <div class="col-xs-12">
             <div class="btnArea">
               <a href="packages-grid.html" class="btn buttonTransparent">view all</a>
             </div>
           </div>
-        </div>
+        </div-->
       </div>
     </section>
 

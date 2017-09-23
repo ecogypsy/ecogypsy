@@ -71,7 +71,7 @@ class DashboardController extends AbstractActionController {
     
     public function savecityAction(){
         $return = array('status' => false, 'msg' => 'error');
-        $request = (array) $this->getRequest()->getPost();
+        $request = (array) $this->getRequest()->getPost(); 
         $registrationResponse = $this->commonObj->savecity($request);
         if (!empty($registrationResponse)) {
             $return = array('status' => true, 'msg' => 'Succesfully created');
