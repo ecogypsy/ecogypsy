@@ -100,8 +100,10 @@ class common {
                 'name' => $data['hotel_name'],
                 'category' => $data['category'],
                 'type' => $data['type'],
-                'cover_image' => $data['upload_file'],
             );      
+            if(!empty($data['ext'])) {
+                $newData['cover_image'] = $data['ext'];
+            }
             if(!empty($data['hotel_id'])) {
                 $query = $this->sql->update()->table('hotel_master')
                     ->set($newData)
@@ -244,7 +246,6 @@ class common {
 			
             $statement = $this->sql->prepareStatementForSqlObject($select);
             $result = $statement->execute();
-
             return $result;
         } catch (Exception $e) {
             return array();
@@ -278,4 +279,16 @@ class common {
             return array();
         }
     }
+    public function readFileFromFolder($path) {
+        $fileList = array();
+        if($dir = opendir($path)) {
+            while($file= readdir($dir)) {
+                if(!($file =='.' || $file=='..')) {
+                   $fileList[] = $path.'/'.$file; 
+                }
+            }
+        }
+        
+        return $fileList;
+    }    
 }

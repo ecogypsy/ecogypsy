@@ -11,7 +11,8 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
     $scope.errorShow = false;
     $scope.cityList = cityList;
     $scope.hotel_id = 0;
-   
+    $scope.tempfoldername = '';
+   $scope.readhotelimage();
     $scope.addhotel = function () {
                 $scope.upload_file = $('input[type=file]').val();
                 $scope.category = $('#category').find(":selected").val();
@@ -42,9 +43,15 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
                         dataList.category = $scope.category;
 			dataList.type = $scope.type;
                         dataList.upload_file = $scope.upload_file;
+                        dataList.uploadFileInput = $("#uploadfile").files;
                         dataList.hotel_id = $scope.hotel_id;
                         dataList.tempfoldername = $scope.tempfoldername;
-                        console.log(dataList);
+                        if($scope.cover_image != undefined) {
+                            dataList.cover_image = $scope.cover_image;
+                        }
+                        if($scope.ext != undefined) {
+                            dataList.ext = $scope.ext;
+                        }
 			$http({
 				method: 'POST',
 				data : ObjecttoParams(dataList),
@@ -55,16 +62,16 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
                                     $scope.hotel_id = response.hotelId
                                     $scope.successShow = true;
                                     $scope.successMsg = response.msg;
+                                    $timeout(function(){
+                                            $scope.successShow = false;
+                                            var path = serverUrl + 'admin/dashboard/hotellist';
+                                            window.location.href = path;
+                                            $scope.errorShow = false;
+                                    },2000);                                    
 				}else{
 					$scope.errorShow = true;
 					$scope.errorMsg = response.msg;
 				}
-				$timeout(function(){
-					$scope.successShow = false;
-                                        var path = serverUrl + 'admin/dashboard/hotellist';
-                                        window.location.href = path;
-					$scope.errorShow = false;
-				},2000)
 			});
 		}else{
 			$scope.errorShow = true;
@@ -121,20 +128,30 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
 		}
 
 	}      
+        
+        $scope.readhotelimage = function() {
+            $http({
+                    method: 'POST',
+                    data : ObjecttoParams(dataList),
+                    url: serverUrl + 'admin/dashboard/readhotelimage',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            }).success(function (response) {
+                console.log(response);
+            });            
+        };
 });
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
             $('#profile-img-tag').attr('src', e.target.result);
-            var hotel_id = $("hotel_id").val();
+            var appElement = document.querySelector('[ng-app=hotel]');
+            var $scope = angular.element(appElement).scope(); 
             var tempfoldername = $("#tempfoldername").val();
-            $.post("upload",{image:e.target.result, hotel_id:hotel_id, tempfoldername:tempfoldername} ,function (data) {
+            $.post("upload",{image:e.target.result, hotel_id:$scope.hotel_id, tempfoldername:tempfoldername} ,function (data) {
                 var obj = JSON.parse(data);
                 console.log(obj.tempfoldername);
                 $("#tempfoldername").val(obj.tempfoldername);
-                var appElement = document.querySelector('[ng-app=hotel]');
-                var $scope = angular.element(appElement).scope();
                 $scope.$apply(function() {
                     $scope.tempfoldername = obj.tempfoldername;
                 });                
@@ -146,3 +163,22 @@ function readURL(input) {
 function uploadImageInTemp(obj){
     readURL(obj);
 };
+
+function uploadCoverImage(input) {
+if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#hotel-cover-tag').attr('src', e.target.result);
+            var appElement = document.querySelector('[ng-app=hotel]');
+            var $scope = angular.element(appElement).scope(); 
+            $.post("upload",{image:e.target.result, hotel_id:$scope.hotel_id, imageType:'coverimage'} ,function (data) {
+                var obj = JSON.parse(data);
+                $scope.$apply(function() {
+                    $scope.cover_image = obj.coverImageName; 
+                    $scope.ext = obj.imageExt;
+                });                 
+            });              
+        }    
+        reader.readAsDataURL(input.files[0]);
+    }    
+}

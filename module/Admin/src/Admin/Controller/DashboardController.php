@@ -100,11 +100,16 @@ class DashboardController extends AbstractActionController {
     public function savehotelAction(){
         $return = array('status' => false, 'msg' => 'error');
         $request = (array) $this->getRequest()->getPost();
-        $files = $this->params()->fromFiles($request['upload_file']);
-        $registrationResponse = $this->commonObj->saveHotel($request);
-        if (!empty($registrationResponse)) {
-            $return = array('status' => true, 'msg' => 'Succesfully created');
+        $hotelId = $this->commonObj->saveHotel($request);
+        if (!empty($hotelId)) {
+            if(!empty($request['tempfoldername'])){
+                @rename($GLOBALS['HOTELIMAGEPATH'].'/'.$request['tempfoldername'], $GLOBALS['HOTELIMAGEPATH'].'/'.$hotelId);
             }
+            if(!empty($request['cover_image'])) {
+                @rename($GLOBALS['HOTELIMAGEPATH'].'/coverimage/'.$request['cover_image'].'.'.$request['ext'], $GLOBALS['HOTELIMAGEPATH'].'/'.$hotelId.'.'.$request['ext']);
+            }
+            $return = array('status' => true, 'msg' => 'Succesfully created', 'hotelId'=>$hotelId);
+        }
         echo json_encode($return);
         exit;
     }
@@ -370,28 +375,46 @@ class DashboardController extends AbstractActionController {
         if(!empty($request['image'])) {
             $data = explode(',', $request['image']);
             $imagData = base64_decode($data[1]);
-            if(!empty($request['hotel_id'])) {
-                //$request['tempfolderanme'] = $request['hotel_id'];
-                $imagePath = $GLOBALS['HOTELIMAGEPATH'].'/'.$request['hotel_id'].'/';
-            }else{
-                if(!empty($request['tempfoldername'])) {
-                    $return['tempfoldername'] = $tempFolderName = $request['tempfoldername'];
-                }else {
-                    $return['tempfoldername'] = $tempFolderName = 'temp_'.time();
+            if(!empty($request['imageType']) && $request['imageType']=='coverimage') {
+                $coverimageName = time();
+                if(!empty($request['hotel_id'])) {
+                    $coverimageName = $request['hotel_id'];
+                }else{
+                    $return['coverImageName'] = $coverimageName;
                 }
-                
-                $imagePath = $GLOBALS['HOTELIMAGEPATH'].'/'.$tempFolderName.'/';
+                $imagePath = $GLOBALS['HOTELIMAGEPATH'].'/coverimage/';                
+            }else {
+                if(!empty($request['hotel_id'])) {
+                    //$request['tempfolderanme'] = $request['hotel_id'];
+                    $imagePath = $GLOBALS['HOTELIMAGEPATH'].'/'.$request['hotel_id'].'/';
+                }else{
+                    if(!empty($request['tempfoldername'])) {
+                        $return['tempfoldername'] = $tempFolderName = $request['tempfoldername'];
+                    }else {
+                        $return['tempfoldername'] = $tempFolderName = 'temp_'.time();
+                    }
+
+                    $imagePath = $GLOBALS['HOTELIMAGEPATH'].'/'.$tempFolderName.'/';
+                }
             }
             @mkdir($imagePath, '0777', true);
+            if(!empty($request['imageType']) && $request['imageType']=='coverimage') {
+                $imagePath = $imagePath.$coverimageName;
+            }else{
+                $imagePath = $imagePath.time();
+            }
+            
             $im = imagecreatefromstring($imagData);
             //print_r($data);die;
             if ($im !== false) {
                 if($data[0] == 'data:image/jpeg;base64'){
                     header('Content-Type: image/jpeg');
-                    imagejpeg($im, $imagePath.time().'.jpg');
+                    imagejpeg($im, $imagePath.'.jpg');
+                    $return['imageExt'] = 'jpg';
                 }else {
                     header('Content-Type: image/png');
-                    imagepng($im, $imagePath.time().'.png');
+                    imagepng($im, $imagePath.'.png');
+                    $return['imageExt'] = 'png';
                 }
                 imagedestroy($im);
             } else {
@@ -399,6 +422,17 @@ class DashboardController extends AbstractActionController {
             }        
         }
         echo json_encode($return);
+        die;
+    }
+    
+    function readhotelimageAction() {
+        $request = (array) $this->getRequest()->getPost();
+        $fileList = array();
+        if($request['hotel_id']) {
+            $path = $GLOBALS['HOTELIMAGEPATH'].'/'.$request['hotel_id'];
+            $fileList = $this->commonObj-readFileFromFolder($path);
+        }
+        echo json_encode($fileList);
         die;
     }
 }
