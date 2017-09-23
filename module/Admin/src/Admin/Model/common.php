@@ -101,15 +101,23 @@ class common {
                 'category' => $data['category'],
                 'type' => $data['type'],
                 'cover_image' => $data['upload_file'],
-            );
-            
-                $insert = $this->sql->insert('hotel_master')
-                        ->values($newData);
-                $statement = $this->sql->prepareStatementForSqlObject($insert);
+            );      
+            if(!empty($data['hotel_id'])) {
+                $query = $this->sql->update()->table('hotel_master')
+                    ->set($newData)
+                    ->where(array('id' => $data['hotel_id']));
+            }else{
+                $query = $this->sql->insert('hotel_master')
+                    ->values($newData);                
+            }
+            $statement = $this->sql->prepareStatementForSqlObject($query);
             $result = $statement->execute();
-
-            return $result->getAffectedRows();
-        } catch (Exception $x) {
+            if(!empty($data['hotel_id'])){
+                return $data['hotel_id']; 
+            }
+            return $this->adapter->getDriver()->getLastGeneratedValue();
+        } catch (Exception $ex) {
+            echo $ex->getMessage();die;
             return array();
         }
     }

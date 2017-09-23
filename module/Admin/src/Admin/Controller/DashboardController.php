@@ -364,4 +364,41 @@ class DashboardController extends AbstractActionController {
     public function packagelistAction() {
         return $this->view;
     }
+      public function uploadAction() {
+        $request = (array) $this->getRequest()->getPost();
+        $return = array('tempfoldername'=>'', 'msg'=>'');
+        if(!empty($request['image'])) {
+            $data = explode(',', $request['image']);
+            $imagData = base64_decode($data[1]);
+            if(!empty($request['hotel_id'])) {
+                //$request['tempfolderanme'] = $request['hotel_id'];
+                $imagePath = $GLOBALS['HOTELIMAGEPATH'].'/'.$request['hotel_id'].'/';
+            }else{
+                if(!empty($request['tempfoldername'])) {
+                    $return['tempfoldername'] = $tempFolderName = $request['tempfoldername'];
+                }else {
+                    $return['tempfoldername'] = $tempFolderName = 'temp_'.time();
+                }
+                
+                $imagePath = $GLOBALS['HOTELIMAGEPATH'].'/'.$tempFolderName.'/';
+            }
+            @mkdir($imagePath, '0777', true);
+            $im = imagecreatefromstring($imagData);
+            //print_r($data);die;
+            if ($im !== false) {
+                if($data[0] == 'data:image/jpeg;base64'){
+                    header('Content-Type: image/jpeg');
+                    imagejpeg($im, $imagePath.time().'.jpg');
+                }else {
+                    header('Content-Type: image/png');
+                    imagepng($im, $imagePath.time().'.png');
+                }
+                imagedestroy($im);
+            } else {
+                $return['msg'] = 'An error occurred.';
+            }        
+        }
+        echo json_encode($return);
+        die;
+    }
 }
