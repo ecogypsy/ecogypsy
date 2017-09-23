@@ -164,6 +164,7 @@
     <!-- SEARCH TOUR -->
     <section class="darkSection">
       <div class="container">
+<form action="<?=$GLOBALS['SITE_APP_URL']?>index/userinfo" method="POST" role="form" class="form">
         <div class="row gridResize">
           <div class="col-sm-3 col-xs-12">
             <div class="sectionTitleDouble">
@@ -173,19 +174,22 @@
           </div>
           <div class="col-sm-7 col-xs-12">
             <div class="row">
+			
               <div class="col-sm-3 col-xs-12">
                 <div class="searchTour">
-                  <select name="guiest_id2" id="guiest_id2" class="select-drop">
-                    <option value="0">Destinations</option>
-                    <option value="1">USA</option>
-                    <option value="2">UK</option>
-                    <option value="3">Canada</option>
+                  <select  id="guiest_id2" class="select-drop" name="location">
+					<option value="">Select Location</option>
+                    <?php 
+						foreach($this->locationList as $value){
+					?>
+					<option value="<?= $value['id']?>"><?= $value['location_name']?></option>
+                    <?php }?>
                   </select>
                 </div>
               </div>
               <div class="col-sm-3 col-xs-12">
                 <div class="input-group date ed-datepicker" data-provide="datepicker">
-                  <input type="text" class="form-control" placeholder="MM/DD/YYYY">
+                  <input type="text" class="form-control" placeholder="MM/DD/YYYY" name="start_date">
                   <div class="input-group-addon">
                       <span class="fa fa-calendar"></span>
                   </div>
@@ -193,7 +197,7 @@
               </div>
               <div class="col-sm-3 col-xs-12">
                 <div class="input-group date ed-datepicker" data-provide="datepicker">
-                  <input type="text" class="form-control" placeholder="MM/DD/YYYY">
+                  <input type="text" class="form-control" placeholder="MM/DD/YYYY" name="end_date">
                   <div class="input-group-addon">
                       <span class="fa fa-calendar"></span>
                   </div>
@@ -201,20 +205,22 @@
               </div>
               <div class="col-sm-3 col-xs-12">
                 <div class="searchTour">
-                  <select name="guiest_id3" id="guiest_id3" class="select-drop">
-                    <option value="0">$1000 - $2000</option>
-                    <option value="1">$1400 - $2000</option>
-                    <option value="2">$1600 - $2000</option>
-                    <option value="3">$1800 - $2000</option>
+                  <select  id="guiest_id3" class="select-drop" name="number_of_person">
+					<option value="1">Number Of Person</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
                   </select>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-sm-2 col-xs-12">
-            <a href="#" class="btn btn-block buttonCustomPrimary">Search</a>
+            <input type="submit" class="btn btn-block buttonCustomPrimary" value="Book">
           </div>
         </div>
+</form>
       </div>
     </section>
 
