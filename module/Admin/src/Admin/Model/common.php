@@ -234,5 +234,16 @@ class common {
             return array();
         }
     }
+    
+    public function getPackageList() {
+        try {
+            $select = $this->sql->select()->from('package_master')->order('start_date');
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute();
 
+            return $result;
+        } catch (Exception $e) {
+            return array();
+        }
+    }
 }

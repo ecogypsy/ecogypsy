@@ -25,7 +25,15 @@ class IndexController extends AbstractActionController
     }
     public function indexAction()
     {
-        $userDetails = $this->commonObj->getUserDetail();
+        $package = array();
+        //$userDetails = $this->commonObj->getUserDetail();
+        $packageList = $this->commonObj->getPackageList();
+        if(!empty($packageList)){
+            foreach ($packageList as $key => $value) {
+                $package[] = $value;
+            }
+        }    
+		$this->view->packageList = $package;
         return $this->view;
     }
     
@@ -136,7 +144,16 @@ class IndexController extends AbstractActionController
         return new ViewModel();
     } 
     public function pakagelistAction(){
-        return new ViewModel();
+		$package = array();
+        $packageList = $this->commonObj->getPackageList();
+        if(!empty($packageList)){
+            foreach ($packageList as $key => $value) {
+                $package[] = $value;
+            }
+        }    
+		
+		$this->view->packageList = $package;
+        return $this->view;
     }
     public function galleryAction(){
         return new ViewModel();
