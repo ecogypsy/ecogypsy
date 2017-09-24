@@ -245,6 +245,18 @@ class IndexController extends AbstractActionController
 		$packageList = array();
 		$id = $this->params()->fromQuery('data');
 		$this->view->id = $id;
+		$packageList = array();
+        if (!empty($id)) {
+            $getPackageList = $this->commonObj->getPackageList($id);
+            if (!empty($getPackageList)) {
+                foreach ($getPackageList as $key => $value) {
+                    $packageList[] = $value;
+                }
+                
+            }
+        }
+		
+		$this->view->packageList = $packageList;
         return $this->view;
     }
 
