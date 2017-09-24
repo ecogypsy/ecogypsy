@@ -278,7 +278,7 @@
                     <?= $this->packageList[$i]['price'] ?>
                   </h5>
                   <ul class="list-inline detailsBtn">
-                    <li><a href="single-package-right-sidebar.html" class="btn buttonTransparent buttonCustomPrimary">Details</a></li>
+                    <li><a href="<?=$GLOBALS['SITE_APP_URL']?>index/detail?data=<?=$this->packageList[$i]['id']?>" class="btn buttonTransparent buttonCustomPrimary">Details</a></li>
                     <li><a href="<?=$GLOBALS['SITE_APP_URL']?>index/booking?data=<?=$this->packageList[$i]['id']?>" class="btn buttonTransparent buttonCustomPrimary">Book now</a></li>
                   </ul>
                 </div>
