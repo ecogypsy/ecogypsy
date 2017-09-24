@@ -223,34 +223,24 @@
           <aside class="col-sm-4 col-xs-12">
             <div class="singleHotelSidebar">
               <div class="panel panel-default">
-                <div class="panel-heading">Check availability</div>
+                <div class="panel-heading"> Availability</div>
                 <div class="panel-body">
                   <div class="row">
                     <div class="col-xs-12">
                       <form class="form-horizontal">
                         <div class="form-group">
                           <label class="control-label col-md-4 col-sm-12 col-xs-4" for="inputSuccess3">Check in:</label>
-                          <div class="col-md-8 col-sm-12 col-xs-8 datepickerWrap">
-                            <div class="input-group date ed-datepicker filterDate" data-provide="datepicker">
-                              <input type="text" class="form-control" placeholder="MM/DD/YYYY">
-                              <div class="input-group-addon">
-                                <span class="fa fa-calendar"></span>
-                              </div>
-                            </div>
-                          </div>
+                          
+						  <label class="" for="inputSuccess3" style="margin-top:15px;">
+						  <?= date('d M,Y',strtotime($this->packageList[0]['start_date']))?><label>
+                           
                         </div>
                         <div class="form-group">
                           <label class="control-label col-md-4 col-sm-12 col-xs-4" for="inputSuccess3">Check out:</label>
-                          <div class="col-md-8 col-sm-12 col-xs-8 datepickerWrap">
-                            <div class="input-group date ed-datepicker filterDate" data-provide="datepicker">
-                              <input type="text" class="form-control" placeholder="MM/DD/YYYY">
-                              <div class="input-group-addon">
-                                <span class="fa fa-calendar"></span>
-                              </div>
-                            </div>
-                          </div>
+                          <label class="" for="inputSuccess3" style="margin-top:15px;">
+						  <?= date('d M,Y',strtotime($this->packageList[0]['end_date']))?><label>
                         </div>
-                        <div class="form-group">
+                        <!--div class="form-group">
                           <label class="control-label col-md-4 col-sm-12 col-xs-4" for="inputSuccess3">Rooms type:</label>
                           <div class="col-md-8 col-sm-12 col-xs-8 datepickerWrap">
                             <div class="searchFilter">
@@ -260,7 +250,7 @@
                               </select>
                             </div>
                           </div>
-                        </div>
+                        </div-->
                         <div class="form-group">
                           <label class="control-label col-md-4 col-sm-12 col-xs-4" for="inputSuccess3">Guest:</label>
                           <div class="col-md-8 col-sm-12 col-xs-8 datepickerWrap">
