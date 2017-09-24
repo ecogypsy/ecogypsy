@@ -239,10 +239,22 @@ class IndexController extends AbstractActionController
     public function galleryAction(){
 		
         return $this->view;
-    } 
+    }
+
+	public function detailAction(){
+		
+        return $this->view;
+    }
 
 	public function userinfoAction(){
 		$request = (array) $this->getRequest()->getPost();
+		$start_date = $request['start_date'];
+		$date = str_replace('/', '-', $start_date);
+		$request['start_date'] = date('Y-m-d', strtotime($date));
+		$end_date = $request['end_date'];
+		$date = str_replace('/', '-', $end_date);
+		$request['end_date'] = date('Y-m-d', strtotime($date));
+		
 		$this->view->data = $request;
 
         return $this->view;
