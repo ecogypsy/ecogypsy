@@ -242,7 +242,9 @@ class IndexController extends AbstractActionController
     }
 
 	public function detailAction(){
-		
+		$packageList = array();
+		$id = $this->params()->fromQuery('data');
+		$this->view->id = $id;
         return $this->view;
     }
 
