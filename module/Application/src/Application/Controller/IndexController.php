@@ -45,7 +45,7 @@ class IndexController extends AbstractActionController
             }
         }    
 		$this->view->locationList = $location;
-
+        $this->layout()->page=1;        
         return $this->view;
     }
     
@@ -125,7 +125,8 @@ class IndexController extends AbstractActionController
     }    
     public function aboutusAction()
     {
-        return new ViewModel();
+        $this->layout()->page=3;
+        return $this->view;
     }
      public function servicesAction()
     {
@@ -149,7 +150,8 @@ class IndexController extends AbstractActionController
     }
     public function contactusAction()
     {
-        return new ViewModel();
+        $this->layout()->page=4;
+        return $this->view;        
     }
     public function pagenotfoundAction()
     {
@@ -165,6 +167,7 @@ class IndexController extends AbstractActionController
         }    
 		
 		$this->view->packageList = $package;
+        $this->layout()->page=2;            
         return $this->view;
     }
 	
@@ -237,7 +240,7 @@ class IndexController extends AbstractActionController
     }    
 	
     public function galleryAction(){
-		
+        $this->layout()->page=5;
         return $this->view;
     }
 

@@ -124,12 +124,17 @@ class common {
         }
     }
     
-    public function gethotelList() {
+    public function gethotelList($optional=array()) {
         try {
             $select = $this->sql->select()->from('hotel_master');
+            if(!empty($optional['id'])) {
+                $select = $select->where(array('id'=>$optional['id']));
+            }
             $statement = $this->sql->prepareStatementForSqlObject($select);
             $result = $statement->execute();
-
+            if(!empty($optional['id'])) {
+                $result = $result->current();
+            }
             return $result;
         } catch (Exception $e) {
             return array();
@@ -279,16 +284,16 @@ class common {
             return array();
         }
     }
-    public function readFileFromFolder($path) {
+    public function readFileFromFolder($path, $optional=array()) {
         $fileList = array();
         if($dir = opendir($path)) {
             while($file= readdir($dir)) {
                 if(!($file =='.' || $file=='..')) {
-                   $fileList[] = $path.'/'.$file; 
+                   $fileList[] = '/ecogypsy/hotel/'.$optional['hotel_id'].'/'.$file; 
                 }
             }
         }
         
         return $fileList;
-    }    
-}
+    } 
+}        

@@ -3,7 +3,7 @@
 
         <!-- HEADER -->
         <header>
-            <nav class="navbar navbar-default navbar-main navbar-fixed-top" role="navigation">
+            <nav class="navbar navbar-default navbar-main navbar-fixed-top lightHeader" role="navigation">
                 <div class="top_header">
                     <div class="container">
                         <div class="row">
@@ -28,19 +28,19 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown singleDrop active">
+                            <li class="dropdown singleDrop <?php echo $this->page==1?'active':''?>">
                                 <a href="<?= $GLOBALS['SITE_APP_URL'] ?>">Home</a>
                             </li>
-                            <li class="dropdown singleDrop">
-                                <a href="<?= $GLOBALS['SITE_APP_URL'] ?>index/pakagelist">tour packages</a>
-                            </li>
-                            <li class="dropdown singleDrop">
+                            <li class="dropdown singleDrop <?php echo $this->page==3?'active':''?>">
                                 <a href="<?= $GLOBALS['SITE_APP_URL'] ?>index/aboutus">about us</a>
                             </li>
-                            <li class="dropdown singleDrop">
+                            <li class="dropdown singleDrop <?php echo $this->page==2?'active':''?>">
+                                <a href="<?= $GLOBALS['SITE_APP_URL'] ?>index/pakagelist">tour packages</a>
+                            </li>                            
+                            <li class="dropdown singleDrop <?php echo $this->page==4?'active':''?>">
                                 <a href="<?= $GLOBALS['SITE_APP_URL'] ?>index/contactus">contact us</a>
                             </li>
-                            <li class="dropdown singleDrop">
+                            <li class="dropdown singleDrop <?php echo $this->page==5?'active':''?>">
                                 <a href="<?= $GLOBALS['SITE_APP_URL'] ?>index/gallery">gallery</a>
                             </li>             
                             <li class="dropdown searchBox">

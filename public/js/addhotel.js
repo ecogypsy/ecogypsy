@@ -6,13 +6,20 @@ function ObjecttoParams(obj) {
     return p.join('&');
 };
 
-app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityList) {
+app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityList, hotelDetail) {
     $scope.successShow = false;
     $scope.errorShow = false;
     $scope.cityList = cityList;
     $scope.hotel_id = 0;
     $scope.tempfoldername = '';
-   $scope.readhotelimage();
+    $scope.hotel_id = hotelDetail.id;
+    $scope.hotel_name = hotelDetail.name;
+    $timeout(function(){
+        $scope.category = hotelDetail.category;
+        $scope.city_id = hotelDetail.city;
+        
+        $scope.type = hotelDetail.type;        
+    }, 200);
     $scope.addhotel = function () {
                 $scope.upload_file = $('input[type=file]').val();
                 $scope.category = $('#category').find(":selected").val();
@@ -33,7 +40,7 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
                 if($scope.type == undefined || $scope.type == ''){
 			error = 'Please select type name' ;
 		}
-		if($scope.upload_file == undefined || $scope.upload_file == ''){
+		if(($scope.upload_file == undefined || $scope.upload_file == '') && $scope.hotel_id==0){
 			error = 'Please upload hotel image';
 		}
 		if(error == ''){
@@ -52,6 +59,8 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
                         if($scope.ext != undefined) {
                             dataList.ext = $scope.ext;
                         }
+                        console.log(dataList);
+                        return;
 			$http({
 				method: 'POST',
 				data : ObjecttoParams(dataList),
@@ -130,15 +139,21 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
 	}      
         
         $scope.readhotelimage = function() {
-            $http({
-                    method: 'POST',
-                    data : ObjecttoParams(dataList),
-                    url: serverUrl + 'admin/dashboard/readhotelimage',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            }).success(function (response) {
-                console.log(response);
-            });            
+            $scope.params = {};
+            $scope.params.hotel_id = $scope.hotel_id;
+            alert($scope.hotel_id);
+            if($scope.hotel_id != undefined && $scope.hotel_id>0){
+                $http({
+                        method: 'POST',
+                        data : ObjecttoParams($scope.params),
+                        url: serverUrl + 'admin/dashboard/readhotelimage',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                }).success(function (response) {
+                    $scope.hotelImageList = response;
+                });            
+            }
         };
+        $scope.readhotelimage();
 });
 function readURL(input) {
     if (input.files && input.files[0]) {

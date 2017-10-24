@@ -79,6 +79,11 @@
                                         <img src="" id="profile-img-tag" width="100px" />
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-12" ng-repeat="images in hotelImageList">
+                                        <img src="{{images}}" height="200"> 
+                                    </div>
+                                </div>
                                 <input type="hidden" name="hotel_id" id="hotel_id" ng-model="hotel_id" value="">
                                 <input type="hidden" value="" name="tempfoldername" id="tempfoldername" ng-model="tempfoldername">
                                 <div class="col-sm-12">
@@ -97,5 +102,6 @@
 <script>
    var app = angular.module('hotel', []);
    var cityList = app.value('cityList',<?= json_encode($this->cityList)?>);
+   var hotelDetail = app.value('hotelDetail',<?= json_encode($this->hotelDetail)?>);
 </script>
 <script src="<?= $this->basePath() . '/public/js/addhotel.js' ?>"></script>

@@ -85,14 +85,22 @@ class DashboardController extends AbstractActionController {
     }
     
     public function hotelAction() {
+        $request = (array) $this->getRequest()->getQuery();
         $cityList = array();
         $getCityList = $this->commonObj->getCityList();
+        $hotelDetail = array();
+        if(!empty($request['data'])){
+            $params = array();
+            $params['id'] = $request['data'];
+            $commonObj = new common();  
+            $hotelDetail = $commonObj->gethotelList($params);
+        }
         if(!empty($getCityList)){
             foreach ($getCityList as $key => $value) {
                 $cityList[$key] = $value;
             }
         }
-        
+        $this->view->hotelDetail = $hotelDetail;
         $this->view->cityList = $cityList;
         return $this->view;
     }
@@ -430,7 +438,7 @@ class DashboardController extends AbstractActionController {
         $fileList = array();
         if($request['hotel_id']) {
             $path = $GLOBALS['HOTELIMAGEPATH'].'/'.$request['hotel_id'];
-            $fileList = $this->commonObj-readFileFromFolder($path);
+            $fileList = $this->commonObj->readFileFromFolder($path, $request);
         }
         echo json_encode($fileList);
         die;
