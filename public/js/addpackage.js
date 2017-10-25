@@ -6,10 +6,19 @@ function ObjecttoParams(obj) {
     return p.join('&');
 };
 
-app.controller('addpackageController', function ($scope, $http, $sce,$timeout,locationList) {
+app.controller('addpackageController', function ($scope, $http, $sce,$timeout,locationList,packageData) {
     $scope.successShow = false;
     $scope.errorShow = false;
     $scope.locationList = locationList;
+    $scope.packageData = packageData;
+    $scope.id = '';
+    if($scope.packageData != ''){
+        $scope.package_name = packageData.package_name;
+        $scope.total_seat = packageData.total_seat;
+        $scope.price = packageData.price;
+        $scope.description = packageData.description;
+        $scope.id = packageData.id;
+    }
     
    
     $scope.addpackage = function () {
@@ -40,6 +49,10 @@ app.controller('addpackageController', function ($scope, $http, $sce,$timeout,lo
 			dataList.description = $scope.description;
                         dataList.start_date =  $("#start_date").val();
                         dataList.end_date = $("#end_date").val();
+                        dataList.id = $scope.id;
+                        if ($scope.id == '') {
+                            delete(dataList.id);
+                        }
 			$http({
 				method: 'POST',
 				data : ObjecttoParams(dataList),
@@ -55,6 +68,8 @@ app.controller('addpackageController', function ($scope, $http, $sce,$timeout,lo
 				}
 				$timeout(function(){
 					$scope.successShow = false;
+                                        var path = serverUrl + 'admin/dashboard/packagelist';
+                                        window.location.href = path;
 					$scope.errorShow = false;
 				},2000)
 			});

@@ -195,10 +195,17 @@ class common {
                 'end_date' => $data['end_date'],
                 'price' => $data['price']
             );
-            
-            $insert = $this->sql->insert('package_master')
+            if (isset($data['id'])) {
+                $update = $this->sql->update('package_master')
+                        ->set($newData)
+                        ->where(array('id'=>$data['id']));
+                $statement = $this->sql->prepareStatementForSqlObject($update);
+            } else {
+                $insert = $this->sql->insert('package_master')
                     ->values($newData);
             $statement = $this->sql->prepareStatementForSqlObject($insert);
+            }
+           
             $result = $statement->execute();
 
             return $result->getAffectedRows();
@@ -246,7 +253,7 @@ class common {
     public function getPackageList($id ='') {
         try {
             $select = $this->sql->select()->from('package_master')->order('start_date');
-            $select = $select->join('location_master', 'location_master.id = package_master.location_id', array('location_name', 'location_description'=>'description'), 'LEFT');
+            $select = $select->join('location_master', 'location_master.id = package_master.location_id', array('location_name', 'location_description'=>'description','location_id'=>'id'), 'LEFT');
             $select = $select->join('hotel_master', 'hotel_master.id = location_master.hotel_id', array('hotel_id'=>'id', 'hotel_name'=>'name', 'category', 'type', 'city', 'cover_image'), 'LEFT');
             if($id != ''){
               $select =  $select->where(array('package_master.id'=>$id));
@@ -346,6 +353,20 @@ class common {
             }
         }  catch (Exception $e) {
             return false;
+        }
+    }
+    
+    
+    
+    public function deletePackage($data) {
+        try {
+            $select = $this->sql->delete('package_master')->where(array('id'=>$data['package_id']));
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute()->getAffectedRows();
+            
+            return $result;
+        } catch (Exception $e) {
+            return array();
         }
     }
 }        
