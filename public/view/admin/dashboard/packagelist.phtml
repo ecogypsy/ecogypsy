@@ -1,13 +1,13 @@
 <!-- RECENT ACTIVITY SECTION -->
 <section class="recentActivitySection">
-    <div class="container">
+    <div class="container" ng-app="packageList" ng-controller="packageListController">
         <div class="row">
             <div class="col-xs-12 ">
                 <div class="recentActivityContent bg-ash">
                     <div class="dashboardPageTitle">
                         <div class="row">
                             <div  class="col-sm-12 col-md-6 pull-left">   
-                                <h2>Package List</h2>
+                                <h2> Package List</h2>
                             </div>
                             <div  class="col-sm-12 col-md-6 pull-right">   
                                 <ul class="list-inline detailsBtn">
@@ -15,30 +15,28 @@
                                 </ul>  
                             </div>    
                         </div>
+                        <p class="danger" style="color:red" ng-show="errorShow">{{errorMsg}}</p>
+                        <p class="danger" style="color:green" ng-show="successShow">{{successMsg}}</p>
                     </div>
                     <div class="table-responsive"  data-pattern="priority-columns">
                         <table class="table listingsTable">
                             <tr class="rowItem">
                                 <td>Package Name</td>
-                                <td>Location</td>
-                                <td>Total seats</td>
-                                <td>Booked Seat</td>
-                                <td>trip Start Date</td>
-                                <td>Trip End Date</td>
+                                <td>Location Name</td>
+                                <td>Total Seat</td>
+                                <td>Start Date</td>
+                                <td>End Date</td>
                                 <td>Action</td>                                
                             </tr>
-                            <tr class="rowItem">
-                                <td> 3Day 2night</td>
-                                <td>Manali</td>
-                                <td>30</td>
-                                <td>25</td>
-                                <td>30 sep 2017</td>
-                                <td>2 Oct 2017</td>
+                            <tr class="rowItem" ng-repeat="(key,value) in packageList">
+                                <td>{{value.package_name}}</td>
+                                <td>{{value.location_name}}</td>
+                                <td>{{value.total_seat}}</td>
+                                <td>{{value.start_date}}</td>
+                                <td>{{value.end_date}}</td>
                                 <td>
-                                    <a href="#"><i class="fa fa-pencil"></i></a>
-                                    <a href="#"><i class="fa fa-check"></i></a>
-                                    <a href="#"><i class="fa fa-lock"></i></a>
-                                    <a href="#"><i class="fa fa-trash-o"></i></a>
+                                    <a href="<?=$GLOBALS['SITE_ADMIN_URL']?>dashboard/addpackage?data={{value.id}}"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" ng-click="delete(value.id)"><i class="fa fa-trash-o" ></i></a>
                                 </td>
                             </tr>
                         </table>
@@ -48,3 +46,8 @@
         </div>
     </div>
 </section>
+<script>
+   var app = angular.module('packageList', []);
+   var packageList = app.value('packageList',<?= json_encode($this->packageList)?>);
+</script>
+<script src="<?= $this->basePath() . '/public/js/packagelist.js' ?>"></script>
