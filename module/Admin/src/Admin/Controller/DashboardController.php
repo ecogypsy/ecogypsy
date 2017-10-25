@@ -443,4 +443,23 @@ class DashboardController extends AbstractActionController {
         echo json_encode($fileList);
         die;
     }
+    public function bookingAction() {
+        $commonObj = new common(); 
+        $params = (array) $this->getRequest()->getPost();
+        $bookingList = $commonObj->getbookingList($params);
+        $this->view->bookingList = $bookingList;
+        return $this->view;
+    }
+    
+    public function changeBookingStatusAction() {
+        $return = array('status'=>false, 'msg'=>'Booking can not updated');
+        $commonObj = new common(); 
+        $params = (array) $this->getRequest()->getPost();
+        $bookingUpdated = $commonObj->changeBookingStatus($params);
+        if($bookingUpdated) {
+            $return = array('status'=>true, 'msg'=>'Booking updated');
+        }
+        echo json_encode($return);
+        exit();
+    }    
 }

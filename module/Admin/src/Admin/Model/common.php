@@ -100,6 +100,7 @@ class common {
                 'name' => $data['hotel_name'],
                 'category' => $data['category'],
                 'type' => $data['type'],
+                'description' => $data['description'],
             );      
             if(!empty($data['ext'])) {
                 $newData['cover_image'] = $data['ext'];
@@ -245,10 +246,11 @@ class common {
     public function getPackageList($id ='') {
         try {
             $select = $this->sql->select()->from('package_master')->order('start_date');
-			if($id != ''){
-              $select =  $select->where(array('id'=>$id));
-            }
-			
+            $select = $select->join('location_master', 'location_master.id = package_master.location_id', array('location_name', 'location_description'=>'description'), 'LEFT');
+            $select = $select->join('hotel_master', 'hotel_master.id = location_master.hotel_id', array('hotel_id'=>'id', 'hotel_name'=>'name', 'category', 'type', 'city', 'cover_image'), 'LEFT');
+            if($id != ''){
+              $select =  $select->where(array('package_master.id'=>$id));
+            }		
             $statement = $this->sql->prepareStatementForSqlObject($select);
             $result = $statement->execute();
             return $result;
@@ -270,8 +272,8 @@ class common {
             return array();
         }
     }
-
-	 public function checkUserExist($data) {
+    
+    public function checkUserExist($data) {
         try {
             $select = $this->sql->select()->from('user_master');
             $select =  $select->where($data);
@@ -286,7 +288,7 @@ class common {
     }
     public function readFileFromFolder($path, $optional=array()) {
         $fileList = array();
-        if($dir = opendir($path)) {
+        if(file_exists($path) && $dir = opendir($path)) {
             while($file= readdir($dir)) {
                 if(!($file =='.' || $file=='..')) {
                    $fileList[] = '/ecogypsy/hotel/'.$optional['hotel_id'].'/'.$file; 
@@ -296,4 +298,54 @@ class common {
         
         return $fileList;
     } 
+    
+    public function getbookingList($params) {
+        try {
+            $select = $this->sql->select()->from('booking_master');
+            $select = $select->join('package_master', 'package_master.id = booking_master.package_id', array('package_name', 'price'), 'LEFT');
+            $select = $select->join('location_master', 'location_master.id = booking_master.location_id', array('location_name', 'location_description'=>'description'), 'LEFT');
+            $select = $select->join('hotel_master', 'hotel_master.id = location_master.hotel_id', array('hotel_name'=>'name', 'category', 'type', 'city', 'cover_image'), 'LEFT');
+            $select = $select->join('user_master', 'user_master.id = booking_master.user_id', array('traveler_name'=>'name', 'traveler_email'=>'email', 'traveler_mobile_no'=>'mobile_no'), 'LEFT');
+            if(!empty($params['id'])){
+                $select =  $select->where(array('booking_master.id'=>$params['id']));
+            }
+            if(!empty($params['status'])){
+                $select =  $select->where(array('booking_master.status'=>$params['status']));
+            }
+            if(!empty($params['creation_from_date'])){
+                $select =  $select->where("booking_master.creation_date>=$params[creation_from_date]");
+            }
+            if(!empty($params['creation_till_date'])){
+                $select =  $select->where("booking_master.creation_date<=$params[creation_till_date]");
+            }
+            $select = $select->order('booking_master.id DESC');
+            //echo $select->getSqlString();die;
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute();
+
+            return $result;
+        } catch (Exception $e) {
+            return array();
+        }        
+    }
+    
+    public function changeBookingStatus($params) {
+        try {
+            if (isset($params['id'])) {
+                $newData = array(
+                    'status' => $params['status']
+                );            
+                $update = $this->sql->update('booking_master')
+                        ->set($newData)
+                        ->where(array('id'=>$params['id']));
+                $statement = $this->sql->prepareStatementForSqlObject($update);
+                $result = $statement->execute();
+                return true;
+            }else {
+                return false;
+            }
+        }  catch (Exception $e) {
+            return false;
+        }
+    }
 }        

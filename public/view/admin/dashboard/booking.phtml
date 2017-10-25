@@ -1,0 +1,89 @@
+<!-- RECENT ACTIVITY SECTION -->
+<section class="recentActivitySection" ng-app="booking" ng-controller="bookingController">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="recentActivityContent bg-ash">
+                    <div class="dashboardPageTitle">
+                        <div class="row">
+                            <div  class="col-sm-12 col-md-6 pull-left">   
+                                <h2>Booking List</h2>
+                            </div>
+                            <div  class="col-sm-12 col-md-6 pull-right">   
+                                <ul class="list-inline detailsBtn">
+                                    <li><a href="<?=$GLOBALS['SITE_ADMIN_URL']?>dashboard/addpackage" class="btn buttonTransparent buttonCustomPrimary">Add Package</a></li>
+                                </ul>  
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="table-responsive"  data-pattern="priority-columns">
+                        <table class="table listingsTable">
+                            <tr class="rowItem border-right">
+                                <td><strong>Booking Id</strong></td>
+                                <td><strong>Status</strong></td>
+                                <td><strong>Traveler Name</strong></td>
+                                <td><strong>Traveler Email</strong></td>
+                                <td><strong>Traveler Mobile</strong></td>
+                                <td><strong>Package Name</strong></td>
+                                <td><strong>Location Name</strong></td>
+                                <td><strong>City Name</strong></td>
+                                <td><strong>Trip Start Date</strong></td>
+                                <td><strong>Trip End Date</strong></td>
+                                <td><strong>Booking Created Date</strong></td>
+                                <td><strong>Action</strong></td>
+                            </tr>
+                            <?php
+                                foreach($this->bookingList as $bookingDetails) {
+                            ?>
+                                    <tr class="rowItem border-right">
+                                        <td><?= $bookingDetails['id']?></td>
+                                        <td><?= $bookingDetails['status']?></td>
+                                        <td><?= $bookingDetails['traveler_name']?></td>
+                                        <td><?= $bookingDetails['traveler_email']?></td>
+                                        <td><?= $bookingDetails['traveler_mobile_no']?></td>
+                                        <td><?= !empty($bookingDetails['package_name'])?$bookingDetails['package_name']:'Custom'?></td>
+                                        <td><?= $bookingDetails['location_name']?></td>
+                                        <td>City Name</td>
+                                        <td><?= $bookingDetails['checkin_date']?></td>
+                                        <td><?= $bookingDetails['checkout_date']?></td>
+                                        <td><?= $bookingDetails['creation_date']?></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu pull-right drop-menu" role="menu">
+                                                    <?php
+                                                        if(strtotime($bookingDetails['checkin_date'])> time() && $bookingDetails['status']=="pending") {
+                                                    ?>
+                                                            <li>
+                                                                <a href="javascript:void(0);" ng-click="changeBookingStatus('<?= $bookingDetails['id']?>', 'confirmed')">Confirm Booking</a>
+                                                            </li>
+                                                    <?php
+                                                        }
+                                                        if($bookingDetails['status']!="cancelled" && $bookingDetails['status']!="completed") {
+                                                    ?>
+                                                            <li>
+                                                                <a href="javascript:void(0);" ng-click="changeBookingStatus('<?= $bookingDetails['id']?>', 'cancelled')">Cancel Booking</a>
+                                                            </li>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                </ul>
+                                            </div>    
+                                        </td>
+                                    </tr>
+                            <?php
+                                }
+                            ?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+   var app = angular.module('booking', []);
+</script>
+<script src="<?= $this->basePath() . '/public/js/booking.js' ?>"></script>

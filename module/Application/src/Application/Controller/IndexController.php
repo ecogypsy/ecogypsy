@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -13,42 +14,44 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 use Admin\Model\common;
-class IndexController extends AbstractActionController
-{
+
+class IndexController extends AbstractActionController {
+
     public $commonObj;
     public $view;
     public $session;
+
     public function __construct() {
-        $this->view =  new ViewModel();
+        $this->view = new ViewModel();
         $this->session = new Container('User');
         $this->commonObj = new common();
-		$GLOBALS['SITE_APP_URL'] = 'http://' .$_SERVER['HTTP_HOST'].'/ecogypsy/application/';
+        $GLOBALS['SITE_APP_URL'] = 'http://' . $_SERVER['HTTP_HOST'] . '/ecogypsy/application/';
     }
-    public function indexAction()
-    {
+
+    public function indexAction() {
         $package = array();
         //$userDetails = $this->commonObj->getUserDetail();
         $packageList = $this->commonObj->getPackageList();
-        if(!empty($packageList)){
+        if (!empty($packageList)) {
             foreach ($packageList as $key => $value) {
                 $package[] = $value;
             }
-        }    
-		$this->view->packageList = $package;
+        }
+        $this->view->packageList = $package;
 
-		$location = array();
+        $location = array();
         //$userDetails = $this->commonObj->getUserDetail();
         $locationList = $this->commonObj->getLocationList();
-        if(!empty($locationList)){
+        if (!empty($locationList)) {
             foreach ($locationList as $key => $value) {
                 $location[] = $value;
             }
-        }    
-		$this->view->locationList = $location;
-        $this->layout()->page=1;        
+        }
+        $this->view->locationList = $location;
+        $this->layout()->page = 1;
         return $this->view;
     }
-    
+
     public function signupAction() {
         $return = array('status' => false, 'msg' => 'error');
         $request = (array) $this->getRequest()->getPost();
@@ -63,13 +66,15 @@ class IndexController extends AbstractActionController
     public function statelistAction() {
         $request = $this->getRequest();
         $params = array();
-        $inputParams = $request->getPost();   
-        if(isset($inputParams['country_id'])) {
+        $inputParams = $request->getPost();
+        if (isset($inputParams['country_id'])) {
             $params['country_id'] = $inputParams['country_id'];
         }
         $stateListResponse = $this->commonObj->curlhit($params, 'getstatelist');
-        echo $stateListResponse;die;
+        echo $stateListResponse;
+        die;
     }
+
     public function addcompanyAction() {
         $request = $this->getRequest()->getPost();
         $params = array();
@@ -87,12 +92,14 @@ class IndexController extends AbstractActionController
         $inputParams['parameters'] = json_encode($params);
         $response = $this->commonObj->curlhit($inputParams, 'addcompany');
         $response = json_decode($response, true);
-        if($response['status'] == true){
+        if ($response['status'] == true) {
             $this->flashMessenger()->addMessage('Thank you for your registration, We will contact you soon!');
             return $this->redirect()->toRoute('application');
         }
-        echo json_encode($response);die;
-    }    
+        echo json_encode($response);
+        die;
+    }
+
     public function updatecompanyAction() {
         $request = $this->getRequest()->getQuery();
         $params = array();
@@ -102,178 +109,188 @@ class IndexController extends AbstractActionController
         $inputParams['parameters'] = json_encode($params);
         $response = $this->commonObj->curlhit($inputParams, 'updatecompany');
         $response = json_decode($response, true);
-        if($response['status'] == true){
+        if ($response['status'] == true) {
             $this->flashMessenger()->addMessage('Thank you for your registration, We will contact you soon!');
             return $this->redirect()->toRoute('admin');
         }
-        echo json_encode($response);die;
-    }    
-    public function activateAction()
-    {
+        echo json_encode($response);
+        die;
+    }
+
+    public function activateAction() {
         $request = $this->getRequest()->getQuery();
         $params = array();
-        if(isset($request['code']) && !empty($request['code'])){
+        if (isset($request['code']) && !empty($request['code'])) {
             $params['activation_code'] = $request['code'];
             $params['status'] = 1;
-            $companyDetailResponse = $this->commonObj->curlhit($params, 'getcompanylist', 'companycontroller');        
+            $companyDetailResponse = $this->commonObj->curlhit($params, 'getcompanylist', 'companycontroller');
             $companyDetail = json_decode($companyDetailResponse, true);
-            if($companyDetail['status']){
+            if ($companyDetail['status']) {
                 $this->view->companyDetail = $companyDetail['data'][0];
             }
         }
         return $this->view;
-    }    
-    public function aboutusAction()
-    {
-        $this->layout()->page=3;
+    }
+
+    public function aboutusAction() {
+        $this->layout()->page = 3;
         return $this->view;
     }
-     public function servicesAction()
-    {
+
+    public function servicesAction() {
         return new ViewModel();
     }
-     public function pricingAction()
-    {
+
+    public function pricingAction() {
         return new ViewModel();
     }
-    public function faqAction()
-    {
+
+    public function faqAction() {
         return new ViewModel();
     }
-    public function signinAction()
-    {
+
+    public function signinAction() {
         return new ViewModel();
     }
-    public function forgetpasswordAction()
-    {
+
+    public function forgetpasswordAction() {
         return new ViewModel();
     }
-    public function contactusAction()
-    {
-        $this->layout()->page=4;
-        return $this->view;        
+
+    public function contactusAction() {
+        $this->layout()->page = 4;
+        return $this->view;
     }
-    public function pagenotfoundAction()
-    {
+
+    public function pagenotfoundAction() {
         return new ViewModel();
-    } 
-    public function pakagelistAction(){
-		$package = array();
+    }
+
+    public function pakagelistAction() {
+        $package = array();
         $packageList = $this->commonObj->getPackageList();
-        if(!empty($packageList)){
+        if (!empty($packageList)) {
             foreach ($packageList as $key => $value) {
                 $package[] = $value;
             }
-        }    
-		
-		$this->view->packageList = $package;
-        $this->layout()->page=2;            
+        }
+
+        $this->view->packageList = $package;
+        $this->layout()->page = 2;
         return $this->view;
     }
-	
-	public function bookingAction(){
-		$packageList = array();
-		$id = $this->params()->fromQuery('data');
+
+    public function bookingAction() {
+        $packageList = array();
+        $id = $this->params()->fromQuery('data');
         if (!empty($id)) {
             $getPackageList = $this->commonObj->getPackageList($id);
             if (!empty($getPackageList)) {
                 foreach ($getPackageList as $key => $value) {
                     $packageList[] = $value;
                 }
-                
             }
         }
-		$this->view->packageList = $packageList;
+        $this->view->packageList = $packageList;
         return $this->view;
     }
-	
-	public function createbookingAction(){
-		$request = (array) $this->getRequest()->getPost();
-		// create user
-		$user_id ;
-		$checkUserExist =  $this->commonObj->checkUserExist(array('email'=>$request['email']));
-		if(!empty($checkUserExist)){
-			foreach($checkUserExist as $value){
-				$user_id = $value['id'];
-			}
-		}
-		if(empty($user_id)){
-			$userArr = array();
-			$userArr['name'] = $request['first_name'];
-			if(!empty($request['last_name'])){
-			    $userArr['name'] = $request['first_name'].' '.$request['last_name'];
-			}
-			$userArr['email'] = $request['email'];
-			$userArr['number'] = $request['mobile'];
-			$userArr['password'] = 123;
-			$user_id = $this->commonObj->registration($userArr);
-		}
-		
-		
+
+    public function createbookingAction() {
+        $request = (array) $this->getRequest()->getPost();
+        // create user
+        $user_id;
+        $checkUserExist = $this->commonObj->checkUserExist(array('email' => $request['email']));
+        if (!empty($checkUserExist)) {
+            foreach ($checkUserExist as $value) {
+                $user_id = $value['id'];
+            }
+        }
+        if (empty($user_id)) {
+            $userArr = array();
+            $userArr['name'] = $request['first_name'];
+            if (!empty($request['last_name'])) {
+                $userArr['name'] = $request['first_name'] . ' ' . $request['last_name'];
+            }
+            $userArr['email'] = $request['email'];
+            $userArr['number'] = $request['mobile'];
+            $userArr['password'] = 123;
+            $user_id = $this->commonObj->registration($userArr);
+        }
+
+
         if (!empty($user_id)) {
             $bookingArr = array();
-			$bookingArr['package_id'] = $request['package_id'];
-			$bookingArr['location_id'] = $request['location_id'];
-			$bookingArr['number_of_person'] = $request['number_of_person'];
-			$bookingArr['checkin_date'] = $request['checkin_date'];
-			$bookingArr['checkout_date'] = $request['checkout_date'];
-			$bookingArr['user_id'] = $user_id;
-			$bookingresponce = $this->commonObj->createBooking($bookingArr);
-			if($bookingresponce > 0){
-				$path = $GLOBALS['SITE_APP_URL'].'index/bookingconfirm?data=success';
-				header('Location:'.$path);exit;
-			}else{
-				$path = $GLOBALS['SITE_APP_URL'].'index/bookingconfirm?id=error';
-			     header('Location:'.$path);exit;
-			}
-        }else{
-				$path = $GLOBALS['SITE_APP_URL'].'index/bookingconfirm?id=error';
-			  header('Location:'.$path);exit;
-			}
-       
+            $bookingArr['package_id'] = $request['package_id'];
+            $bookingArr['location_id'] = $request['location_id'];
+            $bookingArr['number_of_person'] = $request['number_of_person'];
+            $bookingArr['checkin_date'] = $request['checkin_date'];
+            $bookingArr['checkout_date'] = $request['checkout_date'];
+            $bookingArr['user_id'] = $user_id;
+            $bookingresponce = $this->commonObj->createBooking($bookingArr);
+            if ($bookingresponce > 0) {
+                $path = $GLOBALS['SITE_APP_URL'] . 'index/bookingconfirm?data=success';
+                header('Location:' . $path);
+                exit;
+            } else {
+                $path = $GLOBALS['SITE_APP_URL'] . 'index/bookingconfirm?id=error';
+                header('Location:' . $path);
+                exit;
+            }
+        } else {
+            $path = $GLOBALS['SITE_APP_URL'] . 'index/bookingconfirm?id=error';
+            header('Location:' . $path);
+            exit;
+        }
     }
-	
-	public function bookingconfirmAction(){
-		$id = $this->params()->fromQuery('data');
+
+    public function bookingconfirmAction() {
+        $id = $this->params()->fromQuery('data');
         $this->view->msg = $id;
-        return $this->view;
-    }    
-	
-    public function galleryAction(){
-        $this->layout()->page=5;
         return $this->view;
     }
 
-	public function detailAction(){
-		$packageList = array();
-		$id = $this->params()->fromQuery('data');
-		$this->view->id = $id;
-		$packageList = array();
+    public function galleryAction() {
+        $this->layout()->page = 5;
+        return $this->view;
+    }
+
+    public function detailAction() {
+        $packageList = array();
+        $id = $this->params()->fromQuery('data');
+        $this->view->id = $id;
+        $packageList = array();
         if (!empty($id)) {
             $getPackageList = $this->commonObj->getPackageList($id);
             if (!empty($getPackageList)) {
                 foreach ($getPackageList as $key => $value) {
                     $packageList[] = $value;
                 }
-                
             }
+            print_r($packageList);die;
+            if(!empty($packageList[0]['hotel_id'])) {
+                $path = $GLOBALS['HOTELIMAGEPATH'].'/'.$packageList[0]['hotel_id'];
+                $optional['hotel_id'] = $packageList[0]['hotel_id'];
+                $commonObj = new common();  
+                $fileList = $commonObj->readFileFromFolder($path, $optional);
+                $this->view->hotelImage = $fileList;
+            }            
         }
-		
-		$this->view->packageList = $packageList;
+        $this->view->packageList = $packageList;
         return $this->view;
     }
 
-	public function userinfoAction(){
-		$request = (array) $this->getRequest()->getPost();
-		$start_date = $request['start_date'];
-		$date = str_replace('/', '-', $start_date);
-		$request['start_date'] = date('Y-m-d', strtotime($date));
-		$end_date = $request['end_date'];
-		$date = str_replace('/', '-', $end_date);
-		$request['end_date'] = date('Y-m-d', strtotime($date));
-		
-		$this->view->data = $request;
+    public function userinfoAction() {
+        $request = (array) $this->getRequest()->getPost();
+        $start_date = $request['start_date'];
+        $date = str_replace('/', '-', $start_date);
+        $request['start_date'] = date('Y-m-d', strtotime($date));
+        $end_date = $request['end_date'];
+        $date = str_replace('/', '-', $end_date);
+        $request['end_date'] = date('Y-m-d', strtotime($date));
+
+        $this->view->data = $request;
 
         return $this->view;
-    } 
+    }
+
 }

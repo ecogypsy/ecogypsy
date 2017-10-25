@@ -14,6 +14,7 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
     $scope.tempfoldername = '';
     $scope.hotel_id = hotelDetail.id;
     $scope.hotel_name = hotelDetail.name;
+    $scope.description = hotelDetail.description;
     $timeout(function(){
         $scope.category = hotelDetail.category;
         $scope.city_id = hotelDetail.city;
@@ -59,8 +60,7 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
                         if($scope.ext != undefined) {
                             dataList.ext = $scope.ext;
                         }
-                        console.log(dataList);
-                        return;
+                        dataList.description = $scope.description;
 			$http({
 				method: 'POST',
 				data : ObjecttoParams(dataList),
@@ -141,7 +141,6 @@ app.controller('hotelController', function ($scope, $http, $sce,$timeout,cityLis
         $scope.readhotelimage = function() {
             $scope.params = {};
             $scope.params.hotel_id = $scope.hotel_id;
-            alert($scope.hotel_id);
             if($scope.hotel_id != undefined && $scope.hotel_id>0){
                 $http({
                         method: 'POST',
