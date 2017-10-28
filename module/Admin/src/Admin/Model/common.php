@@ -195,10 +195,17 @@ class common {
                 'end_date' => $data['end_date'],
                 'price' => $data['price']
             );
-            
-            $insert = $this->sql->insert('package_master')
+            if (isset($data['id'])) {
+                $update = $this->sql->update('package_master')
+                        ->set($newData)
+                        ->where(array('id'=>$data['id']));
+                $statement = $this->sql->prepareStatementForSqlObject($update);
+            } else {
+                $insert = $this->sql->insert('package_master')
                     ->values($newData);
             $statement = $this->sql->prepareStatementForSqlObject($insert);
+            }
+           
             $result = $statement->execute();
 
             return $result->getAffectedRows();
@@ -346,6 +353,20 @@ class common {
             }
         }  catch (Exception $e) {
             return false;
+        }
+    }
+    
+    
+    
+    public function deletePackage($data) {
+        try {
+            $select = $this->sql->delete('package_master')->where(array('id'=>$data['package_id']));
+            $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute()->getAffectedRows();
+            
+            return $result;
+        } catch (Exception $e) {
+            return array();
         }
     }
 }        

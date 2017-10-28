@@ -173,6 +173,18 @@ class DashboardController extends AbstractActionController {
 
     public function addpackageAction() {
         $locationList = array();
+        $packageList = array();
+        $package_id = $this->params()->fromQuery('data');
+        if (!empty($package_id)) {
+            $getPackageList = $this->commonObj->getpackageList($package_id);
+            if (!empty($getPackageList)) {
+                foreach ($getPackageList as $key => $value) {
+                    $packageList = $value;
+                }
+                
+            }
+        }
+        $this->view->packageData = $packageList;
         $getLocationList = $this->commonObj->getLocationList();
         if(!empty($getLocationList)){
             foreach ($getLocationList as $key => $value) {
@@ -375,8 +387,44 @@ class DashboardController extends AbstractActionController {
     }
       
     public function packagelistAction() {
+        $packageList = array();
+        $getPackageList = $this->commonObj->getpackageList();
+        
+        if (!empty($getPackageList)) {
+            foreach ($getPackageList as $key => $value) {
+                $packageList[$key] = $value;
+            }
+        }
+        $this->view->packagelList = $packageList;
         return $this->view;
     }
+    
+     public function deletepackageAction() {
+        $return = array('status' => false, 'msg' => 'error');
+        $request = (array) $this->getRequest()->getPost();
+        $response = $this->commonObj->deletePackage($request);
+        if (!empty($response)) {
+            $return = array('status' => true, 'msg' => 'Succesfully deleted');
+        }
+        echo json_encode($return);
+        exit;
+    }
+    
+    public function getpackageAction() {
+        $packageList = array();
+        $getPackageList = $this->commonObj->getpackageList();
+        if (!empty($getPackageList)) {
+            foreach ($getPackageList as $key => $value) {
+                $packageList[$key] = $value;
+            }
+        }
+        echo json_encode($packageList);exit;
+    }
+
+
+
+
+
       public function uploadAction() {
         $request = (array) $this->getRequest()->getPost();
         $return = array('tempfoldername'=>'', 'msg'=>'');
