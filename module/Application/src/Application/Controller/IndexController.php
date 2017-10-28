@@ -266,7 +266,6 @@ class IndexController extends AbstractActionController {
                     $packageList[] = $value;
                 }
             }
-            print_r($packageList);die;
             if(!empty($packageList[0]['hotel_id'])) {
                 $path = $GLOBALS['HOTELIMAGEPATH'].'/'.$packageList[0]['hotel_id'];
                 $optional['hotel_id'] = $packageList[0]['hotel_id'];
