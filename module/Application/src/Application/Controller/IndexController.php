@@ -25,7 +25,6 @@ class IndexController extends AbstractActionController {
         $this->view = new ViewModel();
         $this->session = new Container('User');
         $this->commonObj = new common();
-        $GLOBALS['SITE_APP_URL'] = 'http://' . $_SERVER['HTTP_HOST'] . '/ecogypsy/application/';
     }
 
     public function indexAction() {
