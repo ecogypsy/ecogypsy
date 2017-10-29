@@ -253,8 +253,8 @@ class common {
     public function getPackageList($id ='') {
         try {
             $select = $this->sql->select()->from('package_master')->order('start_date');
-            $select = $select->join('location_master', 'location_master.id = package_master.location_id', array('location_name', 'location_description'=>'description','location_id'=>'id'), 'LEFT');
-            $select = $select->join('hotel_master', 'hotel_master.id = location_master.hotel_id', array('hotel_id'=>'id', 'hotel_name'=>'name', 'category', 'type', 'city', 'cover_image'), 'LEFT');
+            $select = $select->join('location_master', 'location_master.id = package_master.location_id', array('location_name', 'location_description'=>'description'), 'LEFT');
+            $select = $select->join('hotel_master', 'hotel_master.id = location_master.hotel_id', array('hotel_id'=>'id', 'hotel_name'=>'name', 'category', 'type', 'city', 'cover_image', 'hotel_description'=>'description'), 'LEFT');
             if($id != ''){
               $select =  $select->where(array('package_master.id'=>$id));
             }		
