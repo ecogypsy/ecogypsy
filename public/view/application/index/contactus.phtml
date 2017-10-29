@@ -55,27 +55,49 @@
           </div>
           <div class="col-sm-6 col-md-7 col-xs-12 col-lg-8">
             <div class="contactForm">
-              <form action="" method="POST" role="form" class="form">
+              <form  method="POST" role="form" class="form">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="" placeholder="Your Name">
+                  <input type="text" class="form-control" id="name" placeholder="Your Name" name="name"> 
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="" placeholder="Your Email">
+                  <input type="email" class="form-control" id="email" placeholder="Your Email" name="email">
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" id="" placeholder="Your Phone">
+                  <input type="text" class="form-control" id="phone" placeholder="Your Phone" name="phone" maxlength="10" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" id="child">
                 </div>
                 <div class="form-group">
-                  <textarea class="form-control" id="" placeholder="Your Message"></textarea>
+                  <textarea class="form-control" id="message" placeholder="Your Message" name="message"></textarea>
                 </div>
-                <button type="submit" class="btn buttonCustomPrimary">send message</button>
+                  <button type="button" class="btn buttonCustomPrimary" onclick="sendmail()">send message</button>
               </form>
             </div>
           </div>
         </div>
       </div>
     </section>
-
+    <script>
+        function sendmail(){
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var name = $("#name").val();
+            var message = $("#message").val();
+            var url = serverUrlForApp+'index/sendmail'
+            if(email != '' && phone != '' && name != '' && message != ''){
+                $.post(url,
+                {
+                  name: name,
+                  email: email,
+                  phone: phone,
+                  message:message,
+                },
+                function(data,status){
+                    alert("Succesfully Send");
+                });
+            }else{
+                 alert("Please filled all details .");
+            }
+        }
+    </script>
     <!-- MAP AREA SECTION -->
     <section class="mapArea">
       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d467453.3147356961!2d90.37215279999992!3d23.748127500000013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1452772758249" height="555" frameborder="0" style="border:0" allowfullscreen></iframe>
