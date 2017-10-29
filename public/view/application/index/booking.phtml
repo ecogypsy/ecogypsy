@@ -68,7 +68,7 @@
                 <h2>Booking Details</h2>
               </div>
               <div class="bookDetailsInfo">
-                <img src="img/booking/booking.jpg" alt="image">
+                <!--<img src="img/booking/booking.jpg" alt="image">-->
                 <div class="infoArea">
                   <h3><?= $this->packageList[0]['package_name']?></h3>
                   <ul class="list-unstyled">
@@ -77,7 +77,7 @@
                     <li><i class="fa fa-user" aria-hidden="true"></i></i>Guests:  <span>1 Adult</span></li>
                   </ul>
                   <div class="priceTotal">
-                    <h2>Total: <span>INR<?= $this->packageList[0]['price']?></span></h2>
+                    <h2>Total: <span>INR <?= $this->packageList[0]['price']?></span></h2>
                   </div>
                 </div>
               </div>
@@ -109,7 +109,7 @@
                   </div>
 				  <div class="form-group col-sm-6 col-xs-12">
                     <label for="">Mobile Number *</label>
-                    <input type="number" class="form-control" name="mobile" maxlength="10">
+                    <input type="text" class="form-control" name="mobile" maxlength="10" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" id="child">
                   </div>
                    <input type="hidden" class="form-control" name="location_id" value="<?= $this->packageList[0]['location_id']?>">
 				   <input type="hidden" class="form-control" name="package_id" value="<?= $this->packageList[0]['id']?>">
