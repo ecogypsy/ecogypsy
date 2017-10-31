@@ -14,6 +14,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 use Admin\Model\common;
+use Zend\Mail;
 
 class IndexController extends AbstractActionController {
 
@@ -289,6 +290,23 @@ class IndexController extends AbstractActionController {
         $this->view->data = $request;
 
         return $this->view;
+    }
+    public function sendmailAction() {
+        $request = (array) $this->getRequest()->getPost();
+        $body = "Hi Sir\Mam , \r\n My name is ".$request['name']. " and email id  : ".$request['email']
+                ." and mobile number : ".$request['phone'] ." . My message is : " .$request['message'];
+        
+        $mail = new Mail\Message();
+        $mail->setBody($body);
+        $mail->setFrom('pramodtiwari2712@gmail.com', 'Pramod');
+        $mail->addTo('raviducat@gmail.com', 'Ravi');
+        $mail->setSubject('contact us');
+
+        $transport = new Mail\Transport\Sendmail();
+        $transport->send($mail);
+        $return = array('status' => true, 'msg' => 'Succesfully Send');
+        echo json_encode($return);
+        exit;
     }
 
 }
