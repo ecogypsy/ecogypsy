@@ -28,10 +28,12 @@
                   <div class="roomCategory">
                     <div class="roomGellary">
                     <?php
+                        if(!empty($this->hotelImage)){
                         foreach($this->hotelImage as $hotelIimage) {
                     ?>
                         <a class="fancybox-pop" rel="portfolio-1" href="<?=$hotelIimage?>"><img src="<?=$hotelIimage?>" alt="Double Room"></a>
                     <?php
+                        }
                         }
                     ?>
                     </div>
@@ -42,11 +44,11 @@
                 <div class="location">
                   <div class="hotelTitle">
                     <h2>Location</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+                    <p><?=$this->packageList[0]['location_description'] ?></p>
                   </div>
-                  <div class="mapAria">
+<!--                  <div class="mapAria">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1867810.7597038958!2d88.9779716740811!3d23.88721118598504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30adaaed80e18ba7%3A0xf2d28e0c4e1fc6b!2sBangladesh!5e0!3m2!1sen!2sin!4v1499267200241" width="100%" height="400px" frameborder="0" style="border:0" allowfullscreen></iframe>
-                  </div>
+                  </div>-->
                 </div>
               </div>
             </div>
@@ -71,17 +73,7 @@
                           <label class="" for="inputSuccess3" style="margin-top:15px;">
 						  <?= date('d M,Y',strtotime($this->packageList[0]['end_date']))?><label>
                         </div>
-                        <!--div class="form-group">
-                          <label class="control-label col-md-4 col-sm-12 col-xs-4" for="inputSuccess3">Rooms type:</label>
-                          <div class="col-md-8 col-sm-12 col-xs-8 datepickerWrap">
-                            <div class="searchFilter">
-                              <select name="guiest_id3" id="guiest_id3" class="select-drop">
-                                <option value="0">Double Room</option>
-                                <option value="1">Single Room</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div-->
+                        
                         <div class="form-group">
                           <label class="control-label col-md-4 col-sm-12 col-xs-4" for="inputSuccess3">Guest:</label>
                           <div class="col-md-8 col-sm-12 col-xs-8 datepickerWrap">
@@ -96,7 +88,7 @@
                           <div class="col-xs-8 totalCostLeft">
                             <p>Total Cost</p>
                           </div>
-                          <div class="col-xs-4 totalCostRight">INR 198</div>
+                          <div class="col-xs-4 totalCostRight">INR <?=$this->packageList[0]['price'] ?></div>
                         </div>
                           <a href="<?=$GLOBALS['SITE_APP_URL']?>index/booking?data=<?=$this->id?>" class="btn btn-block buttonTransparent">Book now <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <div class="col-sm-12">

@@ -1,7 +1,7 @@
     <!-- SEARCH TOUR -->
     <section class="darkSection">
       <div class="container">
-<form action="<?=$GLOBALS['SITE_APP_URL']?>index/userinfo" method="POST" role="form" class="form">
+<form action="<?=$GLOBALS['SITE_APP_URL']?>/userinfo" method="POST" role="form" class="form" name="myForm" onsubmit="return validateForm()">
         <div class="row gridResize">
           <div class="col-sm-3 col-xs-12">
             <div class="sectionTitleDouble">
@@ -43,7 +43,7 @@
               <div class="col-sm-3 col-xs-12">
                 <div class="searchTour">
                   <select  id="guiest_id3" class="select-drop" name="number_of_person">
-					<option value="1">Number Of Person</option>
+					<option value="0">Number Of Person</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -569,3 +569,43 @@
     </div>
   </div>
 </div>
+<script>
+function validateForm() {
+    var location = document.forms["myForm"]["location"].value;
+    var str_date = document.forms["myForm"]["start_date"].value;
+    var end_date = document.forms["myForm"]["end_date"].value;
+
+    var start = new Date(str_date.split("/").reverse().join("/"));
+    var end = new Date(end_date.split("/").reverse().join("/"));
+    var todaysDate = new Date();
+    console.log(start);
+    console.log(todaysDate);
+    if(start.setHours(0,0,0,0) < todaysDate.setHours(0,0,0,0)){
+        alert("Start Date should be grater then current date. ");
+        return false;  
+    }
+    
+    if(end.setHours(0,0,0,0) < todaysDate.setHours(0,0,0,0) || end.setHours(0,0,0,0) < start.setHours(0,0,0,0)){
+        alert("End Date should be grater then current date and start date . ");
+        return false;  
+    }
+    
+    var no_person = document.forms["myForm"]["number_of_person"].value;
+    if (location == "") {
+        alert("Select Location ");
+        return false;
+    }
+    if (str_date == "") {
+        alert("Select Start Date ");
+        return false;
+    }
+    if (end_date == "") {
+        alert("Select End date ");
+        return false;
+    }
+    if (no_person == 0) {
+        alert("Select Number Of Person  ");
+        return false;
+    }
+}
+</script>
