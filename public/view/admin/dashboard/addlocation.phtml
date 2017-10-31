@@ -39,10 +39,31 @@
                                         <textarea rows="4" id="description" cols="50"  placeholder="Describe hotel here..." ></textarea>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
+<!--                                <div class="col-sm-12">
                                    
                                     <input type="file" class="form-control" id="uploadfile"  ng-model="upload_file">
+                                </div>-->
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2">
+                                        <p>Upload cover image</p>
+                                    </div>  
+                                    <div class="col-sm-12 col-md-10">
+                                        <input type="file" id="uploadfile"  ng-model="upload_file" onchange="uploadCoverImage(this)">
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2">
+                                        <p>Upload other images</p>
+                                    </div>  
+                                    <div class="col-sm-12 col-md-4">
+                                        <input type="file" id="uploadfile"  ng-model="upload_file" onchange="uploadImageInTemp(this)">
+                                    </div>
+                                    <div class="col-sm-12 col-md-6">
+                                        <img src="" id="profile-img-tag" width="100px" />
+                                    </div>
+                                </div>
+                                <input type="hidden" name="location_id" id="location_id" ng-model="location_id" value="">
+                                <input type="hidden" value="" name="tempfoldername" id="tempfoldername" ng-model="tempfoldername">
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn buttonTransparent" ng-click="addlocation()">Add Location</button>
                                 </div>
