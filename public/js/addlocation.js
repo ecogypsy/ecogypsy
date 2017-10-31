@@ -12,13 +12,15 @@ app.controller('locationController', function ($scope, $http, $sce, $timeout, $l
     $scope.errorShow = false;
     $scope.cityList = cityList;
     $scope.locationData = locationData;
+    $scope.tempfoldername = '';
     $scope.id = '';
+    $scope.location_id = 0;
     console.log(locationData);
     if (locationData.length == undefined) {
         $scope.hotel_id = locationData['1']['hotel_id'];
         $scope.city_id = locationData['1']['city'];
         $scope.location_name = locationData['1']['location_name'];
-        $scope.id = locationData['1']['id'];
+        $scope.id = $scope.location_id = locationData['1']['id'];
         $('#description').val(locationData['1']['description']);
         var temp = {};
         angular.forEach(hotelList, function (value, key) {
@@ -73,6 +75,13 @@ app.controller('locationController', function ($scope, $http, $sce, $timeout, $l
             dataList.description = $('#description').val();
             dataList.upload_file = $scope.upload_file;
             dataList.id = $scope.id;
+            dataList.tempfoldername = $scope.tempfoldername;
+            if ($scope.cover_image != undefined) {
+                dataList.cover_image = $scope.cover_image;
+            }
+            if ($scope.ext != undefined) {
+                dataList.ext = $scope.ext;
+            }
             if ($scope.id == '') {
                 delete(dataList.id);
             }
@@ -151,4 +160,48 @@ app.controller('locationController', function ($scope, $http, $sce, $timeout, $l
         }
 
     }
-});	
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#profile-img-tag').attr('src', e.target.result);
+            var appElement = document.querySelector('[ng-app=location]');
+            var $scope = angular.element(appElement).scope(); 
+            var tempfoldername = $("#tempfoldername").val();
+            $.post("uploadlocation",{image:e.target.result, location_id:$scope.location_id, tempfoldername:tempfoldername} ,function (data) {
+                var obj = JSON.parse(data);
+                console.log(obj.tempfoldername);
+                $("#tempfoldername").val(obj.tempfoldername);
+                $scope.$apply(function() {
+                    $scope.tempfoldername = obj.tempfoldername;
+                });                
+            });              
+        }    
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+function uploadImageInTemp(obj){
+    readURL(obj);
+};
+
+function uploadCoverImage(input) {
+if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#hotel-cover-tag').attr('src', e.target.result);
+            var appElement = document.querySelector('[ng-app=location]');
+            var $scope = angular.element(appElement).scope(); 
+            $.post("uploadlocation",{image:e.target.result, location_id:$scope.location_id, imageType:'coverimage'} ,function (data) {
+                var obj = JSON.parse(data);
+                $scope.$apply(function() {
+                    $scope.cover_image = obj.coverImageName; 
+                    
+                    $scope.ext = obj.imageExt;
+                });                 
+            });              
+        }    
+        reader.readAsDataURL(input.files[0]);
+    }    
+}

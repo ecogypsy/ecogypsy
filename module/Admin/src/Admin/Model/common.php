@@ -163,7 +163,10 @@ class common {
             
             $result = $statement->execute();
 
-            return $result->getAffectedRows();
+            if(!empty($data['id'])){
+                return $data['id']; 
+            }
+            return $this->adapter->getDriver()->getLastGeneratedValue();
         } catch (Exception $x) {
             return array();
         }
@@ -257,7 +260,7 @@ class common {
             $select = $select->join('hotel_master', 'hotel_master.id = location_master.hotel_id', array('hotel_id'=>'id', 'hotel_name'=>'name', 'category', 'type', 'city', 'cover_image', 'hotel_description'=>'description'), 'LEFT');
             if($id != ''){
               $select =  $select->where(array('package_master.id'=>$id));
-            }		
+            }	
             $statement = $this->sql->prepareStatementForSqlObject($select);
             $result = $statement->execute();
             return $result;
@@ -299,6 +302,19 @@ class common {
             while($file= readdir($dir)) {
                 if(!($file =='.' || $file=='..')) {
                    $fileList[] = '/ecogypsy/hotel/'.$optional['hotel_id'].'/'.$file; 
+                }
+            }
+        }
+        
+        return $fileList;
+    } 
+    
+    public function readFileFromFolderForLocation($path, $optional=array()) {
+        $fileList = array();
+        if(file_exists($path) && $dir = opendir($path)) {
+            while($file= readdir($dir)) {
+                if(!($file =='.' || $file=='..')) {
+                   $fileList[] = '/ecogypsy/location/'.$optional['location_id'].'/'.$file; 
                 }
             }
         }

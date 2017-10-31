@@ -248,7 +248,13 @@
 		
           <div class="col-sm-4 col-xs-12">
             <div class="thumbnail deals">
-              <img src="<?=$this->basePath()?>/img/home/deal/deal-01.jpg" alt="deal-image">
+            <?php    
+              if(!empty($this->image[$this->packageList[$i]['location_id']])){
+                  echo '<img src="'.$this->image[$this->packageList[$i]['location_id']][0].'" alt="deal-image">';
+              }else{
+                echo '<img src="'.$this->basePath().'/img/home/deal/deal-01.jpg" alt="deal-image">';
+              }
+              ?>
               <div class="discountInfo">
                 <!--div class="discountOffer">
                   <h4>

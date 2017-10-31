@@ -160,15 +160,19 @@ class DashboardController extends AbstractActionController {
         $return = array('status' => false, 'msg' => 'error');
         $request = (array) $this->getRequest()->getPost();
         $files = $this->params()->fromFiles($request['upload_file']);
-        $registrationResponse = $this->commonObj->saveLocation($request);
-        if (!empty($registrationResponse)) {
-            $return = array('status' => true, 'msg' => 'Succesfully created');
-            if (isset($request['id'])) {
-                $return = array('status' => true, 'msg' => 'Succesfully updated');
+        $locationId = $this->commonObj->saveLocation($request);
+        if (!empty($locationId)) {
+            if(!empty($request['tempfoldername'])){
+                @rename($GLOBALS['LOCATIONIMAGEPATH'].'/'.$request['tempfoldername'], $GLOBALS['LOCATIONIMAGEPATH'].'/'.$locationId);
             }
+            if(!empty($request['cover_image'])) {
+                @rename($GLOBALS['LOCATIONIMAGEPATH'].'/coverimage/'.$request['cover_image'].'.'.$request['ext'], $GLOBALS['LOCATIONIMAGEPATH'].'/'.$locationId.'.'.$request['ext']);
+            }
+            $return = array('status' => true, 'msg' => 'Succesfully created', 'hotelId'=>$locationId);
         }
         echo json_encode($return);
         exit;
+        
     }
 
     public function addpackageAction() {
@@ -509,5 +513,61 @@ class DashboardController extends AbstractActionController {
         }
         echo json_encode($return);
         exit();
+    }
+
+    public function uploadlocationAction() {
+        $request = (array) $this->getRequest()->getPost();
+        $return = array('tempfoldername'=>'', 'msg'=>'');
+        if(!empty($request['image'])) {
+            $data = explode(',', $request['image']);
+            $imagData = base64_decode($data[1]);
+            if(!empty($request['imageType']) && $request['imageType']=='coverimage') {
+                $coverimageName = time();
+                if(!empty($request['location_id'])) {
+                    $coverimageName = $request['location_id'];
+                }else{
+                    $return['coverImageName'] = $coverimageName;
+                }
+                $imagePath = $GLOBALS['LOCATIONIMAGEPATH'].'/coverimage/';                
+            }else {
+                if(!empty($request['location_id'])) {
+                    //$request['tempfolderanme'] = $request['hotel_id'];
+                    $imagePath = $GLOBALS['LOCATIONIMAGEPATH'].'/'.$request['location_id'].'/';
+                }else{
+                    if(!empty($request['tempfoldername'])) {
+                        $return['tempfoldername'] = $tempFolderName = $request['tempfoldername'];
+                    }else {
+                        $return['tempfoldername'] = $tempFolderName = 'temp_'.time();
+                    }
+
+                    $imagePath = $GLOBALS['LOCATIONIMAGEPATH'].'/'.$tempFolderName.'/';
+                }
+            }
+            @mkdir($imagePath, '0777', true);
+            if(!empty($request['imageType']) && $request['imageType']=='coverimage') {
+                $imagePath = $imagePath.$coverimageName;
+            }else{
+                $imagePath = $imagePath.time();
+            }
+            
+            $im = imagecreatefromstring($imagData);
+            //print_r($data);die;
+            if ($im !== false) {
+                if($data[0] == 'data:image/jpeg;base64'){
+                    header('Content-Type: image/jpeg');
+                    imagejpeg($im, $imagePath.'.jpg');
+                    $return['imageExt'] = 'jpg';
+                }else {
+                    header('Content-Type: image/png');
+                    imagepng($im, $imagePath.'.png');
+                    $return['imageExt'] = 'png';
+                }
+                imagedestroy($im);
+            } else {
+                $return['msg'] = 'An error occurred.';
+            }        
+        }
+        echo json_encode($return);
+        die;
     }    
 }

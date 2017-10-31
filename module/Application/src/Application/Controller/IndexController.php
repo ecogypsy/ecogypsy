@@ -30,15 +30,25 @@ class IndexController extends AbstractActionController {
 
     public function indexAction() {
         $package = array();
+        $image = array();
         //$userDetails = $this->commonObj->getUserDetail();
         $packageList = $this->commonObj->getPackageList();
         if (!empty($packageList)) {
             foreach ($packageList as $key => $value) {
+                if (!empty($value['location_id'])) {
+                    $path = $GLOBALS['LOCATIONIMAGEPATH'] . '/' . $value['location_id'];
+                    $optional['location_id'] = $value['location_id'];
+                    $commonObj = new common();
+                    $fileList = $commonObj->readFileFromFolderForLocation($path, $optional);
+                    $image[$optional['location_id']] = $fileList;
+                }
+                
                 $package[] = $value;
+                
             }
         }
         $this->view->packageList = $package;
-
+        $this->view->image = $image;
         $location = array();
         //$userDetails = $this->commonObj->getUserDetail();
         $locationList = $this->commonObj->getLocationList();
@@ -168,14 +178,23 @@ class IndexController extends AbstractActionController {
 
     public function pakagelistAction() {
         $package = array();
+        $image = array();
         $packageList = $this->commonObj->getPackageList();
         if (!empty($packageList)) {
             foreach ($packageList as $key => $value) {
+                if (!empty($value['location_id'])) {
+                    $path = $GLOBALS['LOCATIONIMAGEPATH'] . '/' . $value['location_id'];
+                    $optional['location_id'] = $value['location_id'];
+                    $commonObj = new common();
+                    $fileList = $commonObj->readFileFromFolderForLocation($path, $optional);
+                    $image[$optional['location_id']] = $fileList;
+                }
                 $package[] = $value;
             }
         }
 
         $this->view->packageList = $package;
+        $this->view->image = $image;
         $this->layout()->page = 2;
         return $this->view;
     }
