@@ -457,7 +457,7 @@ class DashboardController extends AbstractActionController {
                     $imagePath = $GLOBALS['HOTELIMAGEPATH'].'/'.$tempFolderName.'/';
                 }
             }
-            @mkdir($imagePath, '0777', true);
+            @mkdir($imagePath, '0755', true);
             if(!empty($request['imageType']) && $request['imageType']=='coverimage') {
                 $imagePath = $imagePath.$coverimageName;
             }else{
@@ -543,7 +543,7 @@ class DashboardController extends AbstractActionController {
                     $imagePath = $GLOBALS['LOCATIONIMAGEPATH'].'/'.$tempFolderName.'/';
                 }
             }
-            @mkdir($imagePath, '0777', true);
+            @mkdir($imagePath, '0755', true);
             if(!empty($request['imageType']) && $request['imageType']=='coverimage') {
                 $imagePath = $imagePath.$coverimageName;
             }else{
