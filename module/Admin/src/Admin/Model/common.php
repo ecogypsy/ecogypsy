@@ -301,7 +301,7 @@ class common {
         if(file_exists($path) && $dir = opendir($path)) {
             while($file= readdir($dir)) {
                 if(!($file =='.' || $file=='..')) {
-                   $fileList[] = '/hotel/'.$optional['hotel_id'].'/'.$file; 
+                   $fileList[] = $GLOBALS['SITE_HTTP_PATH'].'/hotel/'.$optional['hotel_id'].'/'.$file; 
                 }
             }
         }
@@ -314,7 +314,7 @@ class common {
         if(file_exists($path) && $dir = opendir($path)) {
             while($file= readdir($dir)) {
                 if(!($file =='.' || $file=='..')) {
-                   $fileList[] = '/location/'.$optional['location_id'].'/'.$file; 
+                   $fileList[] = $GLOBALS['SITE_HTTP_PATH'].'/location/'.$optional['location_id'].'/'.$file; 
                 }
             }
         }
